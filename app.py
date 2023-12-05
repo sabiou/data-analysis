@@ -261,22 +261,22 @@ st.write(pivot_table_all_records_dci)
 
 
 # 
-data_dci_anx = df[df['Classes Therapeutiques'] == 'Anxiolytiques']
+data_dci_antiep = df[df['Classes Therapeutiques'] == 'Antiepileptiques']
 
 # Remove spaces from column names in data_ong
-data_dci_anx.columns = data_dci_anx.columns.str.strip()
+data_dci_antiep.columns = data_dci_antiep.columns.str.strip()
 
 # Get unique DEMANDEUR values corresponding to ONG Internationale
-anx = data_dci_anx['DCI'].unique()
+antiep = data_dci_antiep['DCI'].unique()
 
 # Remove spaces from column names in the original DataFrame
 df.columns = df.columns.str.strip()
 
 # Create a new DataFrame with records corresponding to ONG Internationale in the DEMANDEUR column
-df_anx_records = df[df['DCI'].isin(anx)]
+df_antiep_records = df[df['DCI'].isin(antiep)]
 
 # Create a pivot table for the new DataFrame
-pivot_table_all_records_anx = df_anx_records.pivot_table(
+pivot_table_all_records_antiep = df_antiep_records.pivot_table(
     index=['DCI'],
     columns='ANNEE', 
     values='QUANTITE A COMMANDER( BOITES)', 
@@ -285,16 +285,17 @@ pivot_table_all_records_anx = df_anx_records.pivot_table(
 )
 
 # Add a 'Total' column
-pivot_table_all_records_anx['Total'] = pivot_table_all_records_anx.sum(axis=1)
+pivot_table_all_records_antiep['Total'] = pivot_table_all_records_antiep.sum(axis=1)
 
 # Calculate the percentage for each row
-pivot_table_all_records_anx['Percentage'] = (pivot_table_all_records_anx['Total'] / pivot_table_all_records_anx['Total'].sum() * 100).round(3)
+pivot_table_all_records_antiep['Percentage'] = (pivot_table_all_records_antiep['Total'] / pivot_table_all_records_antiep['Total'].sum() * 100).round(3)
 
 # Add a 'Total General' row
-total_general_row_anx = pd.DataFrame(pivot_table_all_records_anx.sum()).T
-total_general_row_anx.index = ['Total General']
-pivot_table_all_records_anx = pd.concat([pivot_table_all_records_anx, total_general_row_anx])
+total_general_row_antiep = pd.DataFrame(pivot_table_all_records_antiep.sum()).T
+total_general_row_antiep.index = ['Total General']
+pivot_table_all_records_antiep = pd.concat([pivot_table_all_records_antiep, total_general_row_antiep])
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Anxiolytiques'")
-st.write(pivot_table_all_records_anx)
+st.write(pivot_table_all_records_antiep)
+
