@@ -5,7 +5,7 @@ import locale
 
 
 # Set the locale to French
-locale.setlocale(locale.LC_NUMERIC, 'fr_FR.UTF-8')
+locale.setlocale(locale.LC_ALL, "fr_FR")
 
 file_path = "database.xlsx"
 df = pd.read_excel(file_path)
