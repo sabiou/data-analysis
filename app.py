@@ -120,8 +120,6 @@ st.write(pivot_table_all_records_ong)
 
 
 
-import streamlit as st
-import pandas as pd
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
 data_ong = df[df['Profil'] == 'ONG Internationale']
@@ -219,3 +217,44 @@ percentage_table_classes['Percentage'] = (pivot_table_classes['Total'] / pivot_t
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for 'Classes Therapeutiques'")
 st.write(pivot_table_classes.join(percentage_table_classes['Percentage']))
+
+
+
+# 
+data_dci = df[df['Classes Therapeutiques'] == 'Antalgiques/Analgésiques']
+
+# Remove spaces from column names in data_ong
+data_dci.columns = data_dci.columns.str.strip()
+
+# Get unique DEMANDEUR values corresponding to ONG Internationale
+dci = data_dci['DCI'].unique()
+
+# Remove spaces from column names in the original DataFrame
+df.columns = df.columns.str.strip()
+
+# Create a new DataFrame with records corresponding to ONG Internationale in the DEMANDEUR column
+df_dci_records = df[df['DEMANDEUR'].isin(dci)]
+
+# Create a pivot table for the new DataFrame
+pivot_table_all_records_dci = df_dci_records.pivot_table(
+    index=['DCI'],
+    columns='ANNEE', 
+    values='QUANTITE A COMMANDER( BOITES)', 
+    aggfunc='sum', 
+    fill_value=0
+)
+
+# Add a 'Total' column
+pivot_table_all_records_dci['Total'] = pivot_table_all_records_dci.sum(axis=1)
+
+# Calculate the percentage for each row
+pivot_table_all_records_dci['Percentage'] = (pivot_table_all_records_dci['Total'] / pivot_table_all_records_dci['Total'].sum() * 100).round(3)
+
+# Add a 'Total General' row
+total_general_row_dci = pd.DataFrame(pivot_table_all_records_dci.sum()).T
+total_general_row_dci.index = ['Total General']
+pivot_table_all_records_dci = pd.concat([pivot_table_all_records_dci, total_general_row_dci])
+
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table for All Records Corresponding to 'ONG Internationale'")
+st.write(pivot_table_all_records_dci)
