@@ -391,7 +391,7 @@ st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
 # Create a pivot table for Profile and FORME PHARMACEUTIQUE
 pivot_table_profile_forme = df.pivot_table(
     index=['Profil'],
-    columns=['ANNEE', 'FORME PHARMACEUTIQUE'],
+    columns='FORME PHARMACEUTIQUE',
     values='QUANTITE A COMMANDER( BOITES)',
     aggfunc='sum',
     fill_value=0,
@@ -400,8 +400,8 @@ pivot_table_profile_forme = df.pivot_table(
 )
 
 # Calculate percentages for each cell
-percentage_table_profile_forme = (pivot_table_profile_forme.div(pivot_table_profile_forme.loc[:, ('Total', '')], axis=0) * 100).round(2)
+percentage_table_profile_forme = (pivot_table_profile_forme.div(pivot_table_profile_forme.loc[:, 'Total'], axis=0) * 100).round(6)
 
 # Display the pivot table with Streamlit
-st.write("## Pivot Table for Profiles and FORME PHARMACEUTIQUE")
+st.write("## Reformatted Pivot Table for Profiles and FORME PHARMACEUTIQUE")
 st.write(percentage_table_profile_forme)
