@@ -482,7 +482,7 @@ pivot_table_cont = pd.pivot_table(
 )
 
 # Calculate percentages for each cell
-percentage_table_cont = (pivot_table_cont.div(pivot_table_cont.iloc[:, -1], axis=0) * 100).round(2)
+percentage_table_cont = (pivot_table_cont.div(pivot_table_cont['Total_Total'], axis=0) * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
