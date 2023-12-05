@@ -203,11 +203,8 @@ st.write(pivot_table_all_records_off)
 # Filter the data for the value "Classe therapeutiques" in the "Profil" column
 data_ct = df[df['Profil'] == 'Classes Therapeutiques']
 
-# Get unique DEMANDEUR values corresponding to ONG Internationale
+# Get unique DEMANDEUR values corresponding to CT
 demandeurs_ct = data_ct['DEMANDEUR'].unique()
-
-# Remove spaces from column names in the original DataFrame
-df.columns = df.columns.str.strip()
 
 # Create a new DataFrame with records corresponding to ONG Internationale in the DEMANDEUR column
 df_ct_records = df[df['DEMANDEUR'].isin(demandeurs_ct)]
@@ -233,5 +230,5 @@ total_general_row_ct.index = ['Total General']
 pivot_table_all_records_ct = pd.concat([pivot_table_all_records_ct, total_general_row_ct])
 
 # Display the pivot table with original values and percentage using Streamlit
-st.write("## Pivot Table for All Records Corresponding to 'Officine'")
+st.write("## Pivot Table for All Records Corresponding to 'Classes therapeutiques'")
 st.write(pivot_table_all_records_ct)
