@@ -387,20 +387,3 @@ percentage_table_formes['Percentage'] = (pivot_table_formes['Total'] / pivot_tab
 st.write("## Pivot Table for 'FORME PHARMACEUTIQUE'")
 st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
 
-
-
-# Melt the DataFrame for Altair
-melted_df = percentage_table_formes.melt(id_vars=['FORME PHARMACEUTIQUE'], var_name='Year', value_name='Percentage')
-
-# Create a line chart using Altair
-chart = alt.Chart(melted_df).mark_line().encode(
-    x='Year:N',
-    y='Percentage:Q',
-    color='FORME PHARMACEUTIQUE:N',
-    tooltip=['FORME PHARMACEUTIQUE', 'Percentage']
-).properties(width=600, height=400)
-
-# Display the line chart using Streamlit
-st.write("## Line Chart for 'FORME PHARMACEUTIQUE'")
-st.altair_chart(chart, use_container_width=True)
-
