@@ -10,17 +10,20 @@ df = pd.read_excel(file_path)
 st.write("## Displaying DataFrame")
 st.write(df)
 
-# Create an Altair chart
-chart = alt.Chart(data_to_plot).mark_bar().encode(
-    y=alt.Y('Centrales pharmaceutiques:N', sort='-x'),
-    x=alt.X('Pourcentage:Q'),
-    color=alt.Color('Pourcentage:Q', scale=alt.Scale(scheme='viridis')),
-    tooltip=['Centrales pharmaceutiques:N', 'Pourcentage:Q']
-).properties(
-    width=600,
-    height=400
+
+pivot_table = pd.pivot_table(
+    df,
+    values='QUANTITE A COMMANDER( BOITES)',
+    index=['Profil'],
+    columns=['ANNEE'],
+    aggfunc={'QUANTITE A COMMANDER( BOITES)': 'sum'},
+    margins=True,
+    margins_name='Total'
 )
 
-# Display the Altair chart using Streamlit
-st.write("## Altair Chart")
-st.altair_chart(chart, use_container_width=True)
+# Calculate percentages
+percentage_table = (pivot_table.div(pivot_table.iloc[:, -1], axis=0) * 100).round(2)
+
+# Display the pivot table using Streamlit
+st.write("## Pivot Table")
+st.write(percentage_table)
