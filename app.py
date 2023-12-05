@@ -340,7 +340,6 @@ st.write("## Pivot Table for All Records Corresponding to 'Antiepileptiques'")
 st.write(pivot_table_all_records_antiep)
 
 
-
 # Create a pivot table for PAYS DE PROVENANCE
 pivot_table_pays = df.pivot_table(
     index=['PAYS DE PROVENANCE'],
@@ -405,12 +404,15 @@ pivot_table_profile_forme = df.pivot_table(
     fill_value=0
 )
 
-# Add a 'Total' column
+# Drop the 'Comprimé' column from the pivot table
+pivot_table_profile_forme = pivot_table_profile_forme.drop(columns='Comprimé')
+
+# Update the 'Total' column
 pivot_table_profile_forme['Total'] = pivot_table_profile_forme.sum(axis=1)
 
-# Calculate the percentage for each row
+# Recalculate the percentage for each row
 pivot_table_profile_forme['Pourcentage'] = (pivot_table_profile_forme['Total'] / pivot_table_profile_forme['Total'].sum() * 100).round(6)
 
-# Display the pivot table with Streamlit
-st.write("## Reformatted Pivot Table for Profiles and FORME PHARMACEUTIQUE")
+# Display the updated pivot table with Streamlit
+st.write("## Updated Pivot Table after Dropping 'Comprimé'")
 st.write(pivot_table_profile_forme)
