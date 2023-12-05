@@ -37,11 +37,21 @@ st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table['Percentage']))
 
 
+
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
 data_centrale = df[df['Profil'] == 'Centrale pharmaceutique']
 
+# Remove spaces from column names in data_centrale
+data_centrale.columns = data_centrale.columns.str.strip()
+
+# Check the columns in data_centrale
+st.write("Columns in data_centrale:", data_centrale.columns)
+
 # Get unique DEMANDEUR values corresponding to Centrale pharmaceutique
 demandeurs_centrale = data_centrale['DEMANDEUR'].unique()
+
+# Remove spaces from column names in the original DataFrame
+df.columns = df.columns.str.strip()
 
 # Create a new DataFrame with records corresponding to Centrale pharmaceutique in the DEMANDEUR column
 df_centrale_records = df[df['DEMANDEUR'].isin(demandeurs_centrale)]
@@ -64,4 +74,3 @@ pivot_table_all_records['Percentage'] = (pivot_table_all_records['Total'] / pivo
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutique'")
 st.write(pivot_table_all_records)
-
