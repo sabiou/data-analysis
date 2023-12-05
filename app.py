@@ -361,3 +361,28 @@ percentage_table_pays['Percentage'] = (pivot_table_pays['Total'] / pivot_table_p
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for 'PAYS DE PROVENANCE'")
 st.write(pivot_table_pays.join(percentage_table_pays['Percentage']))
+
+
+# Remove spaces from column names
+df.columns = df.columns.str.strip()
+
+# Create a pivot table for FORME PHARMACEUTIQUE
+pivot_table_formes = df.pivot_table(
+    index=['FORME PHARMACEUTIQUE'],
+    columns='ANNEE',
+    values='QUANTITE A COMMANDER( BOITES)',
+    aggfunc='sum',
+    fill_value=0,
+    margins=True,
+    margins_name='Total'
+)
+
+# Calculate percentages for each cell
+percentage_table_formes = (pivot_table_formes.div(pivot_table_formes.loc[:, 'Total'], axis=0) * 100).round(2)
+
+# Add a 'Percentage' column
+percentage_table_formes['Percentage'] = (pivot_table_formes['Total'] / pivot_table_formes['Total'].loc['Total'] * 100).round(2)
+
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table for 'FORME PHARMACEUTIQUE'")
+st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
