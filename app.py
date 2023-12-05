@@ -256,8 +256,48 @@ total_general_row_dci.index = ['Total General']
 pivot_table_all_records_dci = pd.concat([pivot_table_all_records_dci, total_general_row_dci])
 
 # Display the pivot table with original values and percentage using Streamlit
-st.write("## Pivot Table for All Records Corresponding to 'DCI'")
+st.write("## Pivot Table for All Records Corresponding to 'Antalgiques/Analgésiques'")
 st.write(pivot_table_all_records_dci)
+
+
+# 
+data_dci_anx = df[df['Classes Therapeutiques'] == 'Anxiolytiques']
+
+# Remove spaces from column names in data_ong
+data_dci_anx.columns = data_dci_anx.columns.str.strip()
+
+# Get unique DEMANDEUR values corresponding to ONG Internationale
+anx = data_dci_anx['DCI'].unique()
+
+# Remove spaces from column names in the original DataFrame
+df.columns = df.columns.str.strip()
+
+# Create a new DataFrame with records corresponding to ONG Internationale in the DEMANDEUR column
+df_anx_records = df[df['DCI'].isin(anx)]
+
+# Create a pivot table for the new DataFrame
+pivot_table_all_records_anx = df_anx_records.pivot_table(
+    index=['DCI'],
+    columns='ANNEE', 
+    values='QUANTITE A COMMANDER( BOITES)', 
+    aggfunc='sum', 
+    fill_value=0
+)
+
+# Add a 'Total' column
+pivot_table_all_records_anx['Total'] = pivot_table_all_records_anx.sum(axis=1)
+
+# Calculate the percentage for each row
+pivot_table_all_records_anx['Percentage'] = (pivot_table_all_records_anx['Total'] / pivot_table_all_records_anx['Total'].sum() * 100).round(3)
+
+# Add a 'Total General' row
+total_general_row_anx = pd.DataFrame(pivot_table_all_records_anx.sum()).T
+total_general_row_anx.index = ['Total General']
+pivot_table_all_records_anx = pd.concat([pivot_table_all_records_anx, total_general_row_anx])
+
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table for All Records Corresponding to 'Anxiolytiques'")
+st.write(pivot_table_all_records_anx)
 
 
 # 
