@@ -468,20 +468,21 @@ st.write(updated_frame_classe)
 
 ### 
 
-pivot_table = pd.pivot_table(
+pivot_table_cont = pd.pivot_table(
     df,
     values='QUANTITE A COMMANDER( BOITES)',
     index=['CONTINENT'],
     columns=['ANNEE'],
-    aggfunc='sum',
-    fill_value=0,
+    aggfunc={'QUANTITE A COMMANDER( BOITES)': 'sum'},
     margins=True,
     margins_name='Total'
 )
-
 # Calculate percentages for each cell
-percentage_table = (pivot_table.div(pivot_table['Total_Total'], axis=0) * 100).round(2)
+percentage_cont = (pivot_table_cont.div(pivot_table_cont.loc[:, 'Total'], axis=0) * 100).round(2)
+
+# Add a 'Percentage' column
+percentage_cont['Percentage'] = (pivot_table_cont['Total'] / pivot_table_cont['Total'].loc['Total'] * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table.join(percentage_table))
+st.write(pivot_table_cont.join(percentage_cont['Percentage']))
