@@ -36,6 +36,8 @@ percentage_table['Percentage'] = (pivot_table['Total'] / pivot_table['Total'].lo
 st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table['Percentage']))
 
+# Drop rows where 'DEMANDEUR' is null
+df = df.dropna(subset=['DEMANDEUR'])
 
 # Create a pivot table with 'DEMANDEUR' as the index
 pivot_table_demandeur = pd.pivot_table(
