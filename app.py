@@ -296,6 +296,6 @@ total_general_row_antiep.index = ['Total General']
 pivot_table_all_records_antiep = pd.concat([pivot_table_all_records_antiep, total_general_row_antiep])
 
 # Display the pivot table with original values and percentage using Streamlit
-st.write("## Pivot Table for All Records Corresponding to 'Anxiolytiques'")
+st.write("## Pivot Table for All Records Corresponding to 'Antiepileptiques'")
 st.write(pivot_table_all_records_antiep)
 
