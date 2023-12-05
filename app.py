@@ -387,3 +387,32 @@ percentage_table_formes['Percentage'] = (pivot_table_formes['Total'] / pivot_tab
 st.write("## Pivot Table for 'FORME PHARMACEUTIQUE'")
 st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
 
+
+
+# Remove spaces from column names
+df.columns = df.columns.str.strip()
+
+# Create a pivot table for Profile and FORME PHARMACEUTIQUE
+pivot_table_profile_forme = df.pivot_table(
+    index=['Profil', 'FORME PHARMACEUTIQUE'],
+    columns='ANNEE',
+    values='QUANTITE A COMMANDER( BOITES)',
+    aggfunc='sum',
+    fill_value=0,
+    margins=True,
+    margins_name='Total'
+)
+
+# Calculate percentages for each cell
+percentage_table_profile_forme = (pivot_table_profile_forme.div(pivot_table_profile_forme.loc[:, 'Total'], axis=0) * 100).round(2)
+
+# Add a 'Percentage' column
+percentage_table_profile_forme['Percentage'] = (pivot_table_profile_forme['Total'] / pivot_table_profile_forme['Total'].loc['Total'] * 100).round(2)
+
+# Reset the index to use "Profil" and "FORME PHARMACEUTIQUE" as columns
+percentage_table_profile_forme = percentage_table_profile_forme.reset_index()
+
+# Display the pivot table using Streamlit
+st.write("## Pivot Table for 'Profil' and 'FORME PHARMACEUTIQUE'")
+st.write(percentage_table_profile_forme)
+
