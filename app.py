@@ -77,6 +77,8 @@ st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutiq
 st.write(pivot_table_all_records)
 
 
+df_bar_plot = pivot_table_all_records
+
 # Create a bar plot using Altair
 bar_chart = alt.Chart(df_bar_plot).mark_bar().encode(
     x=alt.X('Percentage:Q', axis=alt.Axis(title='Percentage')),
