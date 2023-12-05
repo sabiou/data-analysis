@@ -35,3 +35,33 @@ percentage_table['Percentage'] = (pivot_table['Total'] / pivot_table['Total'].lo
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table['Percentage']))
+
+
+# Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
+data_centrale = df[df['Profil'] == 'Centrale pharmaceutique']
+
+# Get unique DEMANDEUR values corresponding to Centrale pharmaceutique
+demandeurs_centrale = data_centrale['DEMANDEUR'].unique()
+
+# Create a new DataFrame with records corresponding to Centrale pharmaceutique in the DEMANDEUR column
+df_centrale_records = df[df['DEMANDEUR'].isin(demandeurs_centrale)]
+
+# Create a pivot table for the new DataFrame
+pivot_table_all_records = df_centrale_records.pivot_table(
+    index='DEMANDEUR', 
+    columns='ANNEE', 
+    values='QUANTITE A COMMANDER( BOITES)', 
+    aggfunc='sum', 
+    fill_value=0
+)
+
+# Add a 'Total' column
+pivot_table_all_records['Total'] = pivot_table_all_records.sum(axis=1)
+
+# Calculate the percentage for each row
+pivot_table_all_records['Percentage'] = (pivot_table_all_records['Total'] / pivot_table_all_records['Total'].sum() * 100).round(2)
+
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutique'")
+st.write(pivot_table_all_records)
+
