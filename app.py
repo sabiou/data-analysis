@@ -386,3 +386,50 @@ percentage_table_formes['Percentage'] = (pivot_table_formes['Total'] / pivot_tab
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for 'FORME PHARMACEUTIQUE'")
 st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
+
+
+
+
+# Assuming df is your original DataFrame
+# If not, load your data using pd.read_excel or other appropriate methods
+file_path = "database.xlsx"
+df = pd.read_excel(file_path)
+
+# Remove spaces from column names
+df.columns = df.columns.str.strip()
+
+# Create a pivot table for FORME PHARMACEUTIQUE
+pivot_table_formes = df.pivot_table(
+    index=['FORME PHARMACEUTIQUE'],
+    columns='ANNEE',
+    values='QUANTITE A COMMANDER( BOITES)',
+    aggfunc='sum',
+    fill_value=0,
+    margins=True,
+    margins_name='Total'
+)
+
+# Calculate percentages for each cell
+percentage_table_formes = (pivot_table_formes.div(pivot_table_formes.loc[:, 'Total'], axis=0) * 100).round(2)
+
+# Add a 'Percentage' column
+percentage_table_formes['Percentage'] = (pivot_table_formes['Total'] / pivot_table_formes['Total'].loc['Total'] * 100).round(2)
+
+# Reset the index to use "FORME PHARMACEUTIQUE" as a column
+percentage_table_formes = percentage_table_formes.reset_index()
+
+# Melt the DataFrame for Altair
+melted_df = percentage_table_formes.melt(id_vars=['FORME PHARMACEUTIQUE'], var_name='Year', value_name='Percentage')
+
+# Create a line chart using Altair
+chart = alt.Chart(melted_df).mark_line().encode(
+    x='Year:N',
+    y='Percentage:Q',
+    color='FORME PHARMACEUTIQUE:N',
+    tooltip=['FORME PHARMACEUTIQUE', 'Percentage']
+).properties(width=600, height=400)
+
+# Display the line chart using Streamlit
+st.write("## Line Chart for 'FORME PHARMACEUTIQUE'")
+st.altair_chart(chart, use_container_width=True)
+
