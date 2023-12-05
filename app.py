@@ -468,6 +468,7 @@ st.write(updated_frame_classe)
 
 ### 
 
+# Create pivot table
 pivot_table_cont = pd.pivot_table(
     df,
     values='QUANTITE A COMMANDER( BOITES)',
@@ -477,9 +478,14 @@ pivot_table_cont = pd.pivot_table(
     margins=True,
     margins_name='Total'
 )
+
 # Calculate percentages for each cell
 percentage_cont = (pivot_table_cont.div(pivot_table_cont.loc[:, 'Total'], axis=0) * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table_cont)
+
+# Display the pivot table with percentages
+st.write("## Pivot Table with Percentages")
+st.write(percentage_cont)
