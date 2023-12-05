@@ -36,18 +36,17 @@ percentage_table['Percentage'] = (pivot_table['Total'] / pivot_table['Total'].lo
 st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table['Percentage']))
 
-# Create an Altair chart for visualization
-melted_table = pd.melt(pivot_table.reset_index(), id_vars='Profil', var_name='Year', value_name='Quantity')
-chart = alt.Chart(melted_table).mark_bar().encode(
-    x='Year:N',
-    y='Quantity:Q',
+# Create an Altair scatter chart
+scatter_chart = alt.Chart(df).mark_circle().encode(
+    x='ANNEE:N',
+    y='QUANTITE A COMMANDER( BOITES):Q',
     color='Profil:N',
-    tooltip=['Profil:N', 'Year:N', 'Quantity:Q']
+    tooltip=['Profil:N', 'ANNEE:N', 'QUANTITE A COMMANDER( BOITES):Q']
 ).properties(
     width=600,
     height=400
 )
 
-# Display the Altair chart using Streamlit
-st.write("## Altair Chart")
-st.altair_chart(chart, use_container_width=True)
+# Display the Altair scatter chart using Streamlit
+st.write("## Scatter Chart")
+st.altair_chart(scatter_chart, use_container_width=True)
