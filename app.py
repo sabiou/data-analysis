@@ -233,7 +233,7 @@ dci = data_dci['DCI'].unique()
 df.columns = df.columns.str.strip()
 
 # Create a new DataFrame with records corresponding to ONG Internationale in the DEMANDEUR column
-df_dci_records = df[df['DEMANDEUR'].isin(dci)]
+df_dci_records = df[df['DCI'].isin(dci)]
 
 # Create a pivot table for the new DataFrame
 pivot_table_all_records_dci = df_dci_records.pivot_table(
@@ -256,5 +256,5 @@ total_general_row_dci.index = ['Total General']
 pivot_table_all_records_dci = pd.concat([pivot_table_all_records_dci, total_general_row_dci])
 
 # Display the pivot table with original values and percentage using Streamlit
-st.write("## Pivot Table for All Records Corresponding to 'ONG Internationale'")
+st.write("## Pivot Table for All Records Corresponding to 'DCI'")
 st.write(pivot_table_all_records_dci)
