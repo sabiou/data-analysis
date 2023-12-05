@@ -476,7 +476,7 @@ pivot_table_cont = pd.pivot_table(
     columns=['ANNEE'],
     aggfunc={'QUANTITE A COMMANDER( BOITES)': 'sum'},
     margins=True,
-    margins_name='Total'
+    margins_name='Total Général'
 )
 
 # Calculate percentages for each cell
