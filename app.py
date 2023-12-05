@@ -15,7 +15,7 @@ data_centrale = df[df['Profil'] == 'Centrale pharmaceutique']
 
 # Création d'une table pivot pour les données de "Centrale pharmaceutique"
 pivot_table_centrale = data_centrale.pivot_table(
-    index='DEMANDEUR', 
+    index='Profil', 
     columns='ANNEE', 
     values='QUANTITE A COMMANDER( BOITES)', 
     aggfunc='sum', 
@@ -35,9 +35,6 @@ pivot_table_centrale = pd.concat([pivot_table_centrale, total_generale_centrale]
 
 # Création d'un nouveau DataFrame avec le tableau de répartition pour "Centrale pharmaceutique"
 tableau_repartition_centrale_df = pd.DataFrame(pivot_table_centrale[['Total', 'Pourcentage']])
-
-# Renommer les colonnes pour le Streamlit
-pivot_table_centrale = pivot_table_centrale.rename_axis(columns={'ANNEE': 'Centrales pharmaceutiques'})
 
 # Affichage du tableau pivot pour "Centrale pharmaceutique"
 st.write("## Pivot Table for 'Centrale pharmaceutique'")
