@@ -386,6 +386,11 @@ percentage_table_formes['Percentage'] = (pivot_table_formes['Total'] / pivot_tab
 st.write("## Pivot Table for 'FORME PHARMACEUTIQUE'")
 st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
 
+
+
+import streamlit as st
+import pandas as pd
+
 # Assuming df is your original DataFrame
 # If not, load your data using pd.read_excel or other appropriate methods
 file_path = "database.xlsx"
@@ -403,16 +408,12 @@ pivot_table_profile_forme = df.pivot_table(
     fill_value=0
 )
 
-# Drop the 'Comprimé' column from the pivot table
-pivot_table_profile_forme = pivot_table_profile_forme.drop(columns='Comprimé')
-
-# Update the 'Total' column
+# Add a 'Total' column
 pivot_table_profile_forme['Total'] = pivot_table_profile_forme.sum(axis=1)
 
-# Recalculate the percentage for each row
+# Calculate the percentage for each row
 pivot_table_profile_forme['Pourcentage'] = (pivot_table_profile_forme['Total'] / pivot_table_profile_forme['Total'].sum() * 100).round(6)
 
-# Display the updated pivot table with Streamlit
-st.write("## Updated Pivot Table after Dropping 'Comprimé'")
+# Display the pivot table with Streamlit
+st.write("## Reformatted Pivot Table for Profiles and FORME PHARMACEUTIQUE")
 st.write(pivot_table_profile_forme)
-
