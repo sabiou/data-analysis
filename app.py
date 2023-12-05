@@ -404,8 +404,8 @@ pivot_table_profile_forme = df.pivot_table(
     fill_value=0
 )
 
-# Drop the 'Comprimé' column from the pivot table
-pivot_table_profile_forme = pivot_table_profile_forme.drop(columns='Comprimé')
+# Add the 'Comprimé' column back to the pivot table
+pivot_table_profile_forme['Comprimé'] = 0  # Assuming a default value of 0 for 'Comprimé'
 
 # Update the 'Total' column
 pivot_table_profile_forme['Total'] = pivot_table_profile_forme.sum(axis=1)
@@ -414,5 +414,5 @@ pivot_table_profile_forme['Total'] = pivot_table_profile_forme.sum(axis=1)
 pivot_table_profile_forme['Pourcentage'] = (pivot_table_profile_forme['Total'] / pivot_table_profile_forme['Total'].sum() * 100).round(6)
 
 # Display the updated pivot table with Streamlit
-st.write("## Updated Pivot Table after Dropping 'Comprimé'")
+st.write("## Reverted Pivot Table with 'Comprimé'")
 st.write(pivot_table_profile_forme)
