@@ -14,9 +14,6 @@ df = pd.read_excel(file_path)
 st.write("## Displaying DataFrame")
 st.write(df)
 
-# Drop rows where 'DEMANDEUR' is null
-df = df.dropna(subset=['DEMANDEUR'])
-
 # Create a pivot table with 'DEMANDEUR' as the index
 pivot_table_demandeur = pd.pivot_table(
     df,
