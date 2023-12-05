@@ -54,7 +54,7 @@ df_centrale_records = df[df['DEMANDEUR'].isin(demandeurs_centrale)]
 
 # Create a pivot table for the new DataFrame
 pivot_table_all_records = df_centrale_records.pivot_table(
-    index='DEMANDEUR', 
+    index=[('Centrale pharmaceutique', 'DEMANDEUR')],
     columns='ANNEE', 
     values='QUANTITE A COMMANDER( BOITES)', 
     aggfunc='sum', 
