@@ -470,7 +470,7 @@ st.write(updated_frame_classe)
 
 # Assuming your DataFrame is named 'df'
 # Create a pivot table
-pivot_table = pd.pivot_table(
+pivot_table_continent = pd.pivot_table(
     df,
     values='QUANTITE A COMMANDER( BOITES)',
     index=['CONTINENT'],
@@ -482,10 +482,10 @@ pivot_table = pd.pivot_table(
 )
 
 # Rename columns to avoid conflicts
-pivot_table.columns = [f"{col[0]}_{col[1]}" for col in pivot_table.columns]
+pivot_table_continent.columns = [f"{col[0]}_{col[1]}" for col in pivot_table_continent.columns]
 
 # Calculate percentages for each cell
-percentage_table = (pivot_table.div(pivot_table['Total_Total'], axis=0) * 100).round(2)
+percentage_table = (pivot_table_continent.div(pivot_table['Total_Total'], axis=0) * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
