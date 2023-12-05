@@ -418,5 +418,6 @@ pivot_table_profile_forme['Total'] = pivot_table_profile_forme.sum(axis=1)
 pivot_table_profile_forme['Pourcentage'] = (pivot_table_profile_forme['Total'] / pivot_table_profile_forme['Total'].sum() * 100).round(6)
 
 # Display the updated pivot table with Streamlit
-st.write("## Pivot Table for Profiles and FORME PHARMACEUTIQUE'")
+st.write("## Updated Pivot Table after Dropping 'Comprimé'")
 st.write(pivot_table_profile_forme)
+
