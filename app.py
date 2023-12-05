@@ -427,7 +427,8 @@ updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 st.write("## Updated DataFrame with 'Total General'")
 st.write(updated_frame)
 
-
+# Remove spaces from column names
+df.columns = df.columns.str.strip()
 
 # Create a pivot table
 pivot_table = pd.pivot_table(
