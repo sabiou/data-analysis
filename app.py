@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 
 
-file_path = "database.xls"
+file_path = "database.xlsx"
 df = pd.read_excel(file_path)
 
 
