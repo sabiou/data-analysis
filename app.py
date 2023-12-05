@@ -387,15 +387,6 @@ st.write("## Pivot Table for 'FORME PHARMACEUTIQUE'")
 st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
 
 
-
-import streamlit as st
-import pandas as pd
-
-# Assuming df is your original DataFrame
-# If not, load your data using pd.read_excel or other appropriate methods
-file_path = "database.xlsx"
-df = pd.read_excel(file_path)
-
 # Remove spaces from column names
 df.columns = df.columns.str.strip()
 
@@ -427,8 +418,7 @@ updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 st.write("## Updated DataFrame with 'Total General'")
 st.write(updated_frame)
 
-# Remove spaces from column names
-df.columns = df.columns.str.strip()
+####
 
 # Create a pivot table
 pivot_table = pd.pivot_table(
@@ -437,15 +427,12 @@ pivot_table = pd.pivot_table(
     index=['ANNEE'],
     aggfunc='sum',
     margins=True,
-    margins_name='Total'
+    margins_name='Total générale'
 )
 
 # Calculate percentages for each cell
-percentage_table = (pivot_table.div(pivot_table['Total'], axis=0) * 100).round(2)
-
-# Add a 'Percentage' column
-percentage_table['Percentage'] = (pivot_table['Total'] / pivot_table['Total'].loc['Total'] * 100).round(2)
+percentage_table = (pivot_table.div(pivot_table.iloc[-1, 0], axis=1) * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table.join(percentage_table['Percentage']))
+st.write(pivot_table.join(percentage_table, rsuffix='_Pourcentage'))
