@@ -78,12 +78,12 @@ st.write(pivot_table_all_records)
 
 
 # Create a bar plot using Altair
-bar_chart = alt.Chart(pivot_table_all_records.reset_index()).mark_bar().encode(
+bar_chart = alt.Chart(df_bar_plot).mark_bar().encode(
     x=alt.X('Percentage:Q', axis=alt.Axis(title='Percentage')),
     y=alt.Y('DEMANDEUR:N', sort='-x', axis=alt.Axis(title='DEMANDEUR')),
     tooltip=['Percentage']
 ).properties(
-    title="Percentage Distribution of 'Centrale pharmaceutique' Records by DEMANDEUR"
+    title="Percentage Distribution by DEMANDEUR"
 )
 
 # Display the bar chart using Streamlit
