@@ -39,3 +39,62 @@ tableau_repartition_centrale_df = pd.DataFrame(pivot_table_centrale[['Total', 'P
 # Affichage du tableau pivot pour "Centrale pharmaceutique"
 st.write("## Pivot Table for 'Centrale pharmaceutique'")
 st.write(pivot_table_centrale)
+
+# Filtrer les données pour la valeur "Centrale pharmaceutique" dans la colonne "Profil"
+data_centrale = df[df['Profil'] == 'Centrale pharmaceutique']
+
+# Création d'une table pivot pour les données de "Centrale pharmaceutique"
+pivot_table_centrale = data_centrale.pivot_table(
+    index='DEMANDEUR', 
+    columns='ANNEE', 
+    values='QUANTITE A COMMANDER( BOITES)', 
+    aggfunc='sum', 
+    fill_value=0
+)
+
+# Ajout d'une colonne Total
+pivot_table_centrale['Total'] = pivot_table_centrale.sum(axis=1)
+
+# Calcul du pourcentage global pour chaque ligne
+pivot_table_centrale['Pourcentage'] = (pivot_table_centrale['Total'] / pivot_table_centrale['Total'].sum() * 100).round(3)
+
+# Ajout de la ligne "Total générale"
+total_generale_centrale = pd.DataFrame(pivot_table_centrale.sum()).T
+total_generale_centrale.index = ['Total générale']
+pivot_table_centrale = pd.concat([pivot_table_centrale, total_generale_centrale])
+
+# Création d'un nouveau DataFrame avec le tableau de répartition pour "Centrale pharmaceutique"
+tableau_repartition_centrale_df = pd.DataFrame(pivot_table_centrale[['Total', 'Pourcentage']])
+
+# Renommer les colonnes pour le Streamlit
+pivot_table_centrale = pivot_table_centrale.rename_axis(columns={'ANNEE': 'Centrales pharmaceutiques'})
+
+# Affichage du tableau pivot pour "Centrale pharmaceutique"
+st.write("## Pivot Table for 'Centrale pharmaceutique'")
+st.write(pivot_table_centrale)
+
+# Display each DEMANDEUR
+st.write("## Pivot Table for Each DEMANDEUR")
+for demandeur in df['DEMANDEUR'].unique():
+    data_demandeur = df[(df['Profil'] == 'Centrale pharmaceutique') & (df['DEMANDEUR'] == demandeur)]
+    pivot_table_demandeur = data_demandeur.pivot_table(
+        index='DEMANDEUR', 
+        columns='ANNEE', 
+        values='QUANTITE A COMMANDER( BOITES)', 
+        aggfunc='sum', 
+        fill_value=0
+    )
+    pivot_table_demandeur['Total'] = pivot_table_demandeur.sum(axis=1)
+    pivot_table_demandeur['Pourcentage'] = (pivot_table_demandeur['Total'] / pivot_table_demandeur['Total'].sum() * 100).round(3)
+    
+    # Ajout de la ligne "Total générale"
+    total_generale_demandeur = pd.DataFrame(pivot_table_demandeur.sum()).T
+    total_generale_demandeur.index = ['Total générale']
+    pivot_table_demandeur = pd.concat([pivot_table_demandeur, total_generale_demandeur])
+    
+    # Renommer les colonnes pour le Streamlit
+    pivot_table_demandeur = pivot_table_demandeur.rename_axis(columns={'ANNEE': f"{demandeur}"})
+    
+    # Affichage du tableau pivot pour chaque DEMANDEUR
+    st.write(f"### Pivot Table for '{demandeur}'")
+    st.write(pivot_table_demandeur)
