@@ -37,15 +37,11 @@ st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table['Percentage']))
 
 
-
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
 data_centrale = df[df['Profil'] == 'Centrale pharmaceutique']
 
 # Remove spaces from column names in data_centrale
 data_centrale.columns = data_centrale.columns.str.strip()
-
-# Check the columns in data_centrale
-st.write("Columns in data_centrale:", data_centrale.columns)
 
 # Get unique DEMANDEUR values corresponding to Centrale pharmaceutique
 demandeurs_centrale = data_centrale['DEMANDEUR'].unique()
