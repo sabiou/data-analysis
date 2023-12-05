@@ -163,26 +163,20 @@ st.write("## Pivot Table for All Records Corresponding to 'ONG Internationale'")
 st.write(pivot_table_all_records_ong)
 
 
-import streamlit as st
-import pandas as pd
-
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
-data_ong = df[df['Profil'] == 'Officines']
-
-# Remove spaces from column names in data_ong
-data_ong.columns = data_ong.columns.str.strip()
+data_off = df[df['Profil'] == 'Officines']
 
 # Get unique DEMANDEUR values corresponding to ONG Internationale
-demandeurs_ong = data_ong['DEMANDEUR'].unique()
+demandeurs_off = data_off['DEMANDEUR'].unique()
 
 # Remove spaces from column names in the original DataFrame
 df.columns = df.columns.str.strip()
 
 # Create a new DataFrame with records corresponding to ONG Internationale in the DEMANDEUR column
-df_ong_records = df[df['DEMANDEUR'].isin(demandeurs_ong)]
+df_off_records = df[df['DEMANDEUR'].isin(demandeurs_off)]
 
 # Create a pivot table for the new DataFrame
-pivot_table_all_records_ong = df_ong_records.pivot_table(
+pivot_table_all_records_off = df_off_records.pivot_table(
     index=['DEMANDEUR'],
     columns='ANNEE', 
     values='QUANTITE A COMMANDER( BOITES)', 
@@ -191,16 +185,16 @@ pivot_table_all_records_ong = df_ong_records.pivot_table(
 )
 
 # Add a 'Total' column
-pivot_table_all_records_ong['Total'] = pivot_table_all_records_ong.sum(axis=1)
+pivot_table_all_records_off['Total'] = pivot_table_all_records_off.sum(axis=1)
 
 # Calculate the percentage for each row
-pivot_table_all_records_ong['Percentage'] = (pivot_table_all_records_ong['Total'] / pivot_table_all_records_ong['Total'].sum() * 100).round(3)
+pivot_table_all_records_off['Percentage'] = (pivot_table_all_records_off['Total'] / pivot_table_all_records_off['Total'].sum() * 100).round(3)
 
 # Add a 'Total General' row
-total_general_row_ong = pd.DataFrame(pivot_table_all_records_ong.sum()).T
-total_general_row_ong.index = ['Total General']
-pivot_table_all_records_ong = pd.concat([pivot_table_all_records_ong, total_general_row_ong])
+total_general_row_off = pd.DataFrame(pivot_table_all_records_off.sum()).T
+total_general_row_off.index = ['Total General']
+pivot_table_all_records_off = pd.concat([pivot_table_all_records_off, total_general_row_off])
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Officine'")
-st.write(pivot_table_all_records_ong)
+st.write(pivot_table_all_records_off)
