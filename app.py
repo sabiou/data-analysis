@@ -480,26 +480,6 @@ pivot_table_cont = pd.pivot_table(
 # Calculate percentages for each cell
 percentage_cont = (pivot_table_cont.div(pivot_table_cont.loc[:, 'Total'], axis=0) * 100).round(2)
 
-##
-
-# Rename columns to avoid conflicts
-pivot_table.columns = [f"{col[0]}_{col[1]}" for col in pivot_table.columns]
-
-# Calculate percentages for each cell
-percentage_table = (pivot_table.div(pivot_table['Total_Total'], axis=0) * 100).round(2)
-
-# Rename 'Total' columns in percentage_table
-percentage_table.columns = [col.replace('_Total', '_Pourcentage') for col in percentage_table.columns]
-
-# Add a 'Pourcentage' column to the original pivot table
-pivot_table['Pourcentage'] = percentage_table['Total_Pourcentage']
-
-# Display the pivot table with original values, percentages, and a 'Total' column using Streamlit
-st.write("## Pivot Table")
-st.write(pivot_table)
-
-##
-
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table_cont)
