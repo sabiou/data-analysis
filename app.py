@@ -22,12 +22,9 @@ pivot_table = pd.pivot_table(
     margins_name='Total'
 )
 
-# Calculate percentages only for the 'Total' column
-percentage_table = (pivot_table.div(pivot_table.iloc[:, -1], axis=0) * 100).round(2)
-
 # Display the pivot table using Streamlit
 st.write("## Pivot Table")
-st.write(percentage_table)
+st.write(pivot_table)
 
 # Create an Altair chart for visualization
 melted_table = pd.melt(pivot_table.reset_index(), id_vars='Profil', var_name='Year', value_name='Quantity')
