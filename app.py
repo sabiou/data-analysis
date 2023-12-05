@@ -388,20 +388,29 @@ st.write("## Pivot Table for 'FORME PHARMACEUTIQUE'")
 st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
 
 
+# Assuming df is your original DataFrame
+# If not, load your data using pd.read_excel or other appropriate methods
+file_path = "database.xlsx"
+df = pd.read_excel(file_path)
+
+# Remove spaces from column names
+df.columns = df.columns.str.strip()
+
 # Create a pivot table for Profile and FORME PHARMACEUTIQUE
 pivot_table_profile_forme = df.pivot_table(
     index=['Profil'],
     columns='FORME PHARMACEUTIQUE',
     values='QUANTITE A COMMANDER( BOITES)',
     aggfunc='sum',
-    fill_value=0,
-    margins=True,
-    margins_name='Total'
+    fill_value=0
 )
 
-# Calculate percentages for each cell
-percentage_table_profile_forme = (pivot_table_profile_forme.div(pivot_table_profile_forme.loc[:, 'Total'], axis=0) * 100).round(6)
+# Add a 'Total' column
+pivot_table_profile_forme['Total'] = pivot_table_profile_forme.sum(axis=1)
+
+# Calculate the percentage for each row
+pivot_table_profile_forme['Pourcentage'] = (pivot_table_profile_forme['Total'] / pivot_table_profile_forme['Total'].sum() * 100).round(6)
 
 # Display the pivot table with Streamlit
 st.write("## Reformatted Pivot Table for Profiles and FORME PHARMACEUTIQUE")
-st.write(percentage_table_profile_forme)
+st.write(pivot_table_profile_forme)
