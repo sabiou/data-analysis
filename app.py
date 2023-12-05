@@ -427,9 +427,8 @@ updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 st.write("## Updated DataFrame with 'Total General'")
 st.write(updated_frame)
 
-# Display the updated pivot table with Streamlit
-#st.write("## Updated Pivot Table after Dropping 'Comprimé'")
-#st.write(pivot_table_profile_forme)
+
+
 
 # Create a pivot table
 pivot_table = pd.pivot_table(
