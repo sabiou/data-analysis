@@ -78,8 +78,9 @@ st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutiq
 st.write(pivot_table_all_records)
 
 
-# Read the provided table from a string
-table_string = """DEMANDEUR	2018	2019	2020	2021	2022	Total	Percentage
+
+# Read the provided pivot table from a string
+pivot_table_string = """DEMANDEUR	2018	2019	2020	2021	2022	Total	Percentage
 CEPROPHARM	0	0	600	6500	33163	40263	3.214
 CODIPHARM	0	7000	0	0	0	7000	0.559
 EGY NILE PHARM	0	0	0	0	3000	3000	0.239
@@ -92,11 +93,11 @@ SONIPHARM	0	0	0	0	430	430	0.034
 UBIPHARM	22856	89990	47745	173537	144157	478285	38.181
 """
 
-# Load the table into a DataFrame
-df_bar_plot = pd.read_csv(StringIO(table_string), delim_whitespace=True)
+# Load the pivot table into a DataFrame
+pivot_table_all_records = pd.read_csv(StringIO(pivot_table_string), delim_whitespace=True)
 
 # Create a bar plot using Altair
-bar_chart = alt.Chart(df_bar_plot).mark_bar().encode(
+bar_chart = alt.Chart(pivot_table_all_records).mark_bar().encode(
     x=alt.X('Percentage:Q', axis=alt.Axis(title='Percentage')),
     y=alt.Y('DEMANDEUR:N', sort='-x', axis=alt.Axis(title='DEMANDEUR')),
     tooltip=['Percentage']
