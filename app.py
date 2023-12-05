@@ -438,3 +438,30 @@ percentage_table.columns = ['Pourcentage']
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table, rsuffix='_Pourcentage'))
+
+######
+
+# Create a pivot table for Profile and FORME PHARMACEUTIQUE
+pivot_table_profile_classe= df.pivot_table(
+    index=['Classes Therapeutiques'],
+    columns='FORME PHARMACEUTIQUE',
+    values='QUANTITE A COMMANDER( BOITES)',
+    aggfunc='sum',
+    fill_value=0
+)
+
+# Update the 'Total' column
+pivot_table_profile_classe['Total'] = pivot_table_profile_classe.sum(axis=1)
+
+# Recalculate the percentage for each row
+pivot_table_profile_classe['Pourcentage'] = (pivot_table_profile_classe['Total'] / pivot_table_profile_classe['Total'].sum() * 100).round(6)
+
+# Add a 'Total General' row to the DataFrame
+total_general_row_c = pd.DataFrame(pivot_table_profile_classe.sum()).T
+total_general_row_c.index = ['Total générale']
+total_general_row_c['Pourcentage'] = 100.0  # Assuming 100% for the 'Pourcentage' column
+updated_frame_classe = pd.concat([pivot_table_profile_classe, total_general_row_c])
+
+# Display the updated DataFrame
+st.write("## Updated DataFrame with 'Total General'")
+st.write(updated_frame_classe)
