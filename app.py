@@ -164,7 +164,7 @@ st.write(pivot_table_all_records_ong)
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
-data_off = df[df['Profil'] == 'Officines']
+data_off = df[df['Profil'] == 'Officine']
 
 # Get unique DEMANDEUR values corresponding to ONG Internationale
 demandeurs_off = data_off['DEMANDEUR'].unique()
