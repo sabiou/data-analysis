@@ -119,8 +119,6 @@ st.write("## Pivot Table for All Records Corresponding to 'ONG Internationale'")
 st.write(pivot_table_all_records_ong)
 
 
-
-
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
 data_ong = df[df['Profil'] == 'ONG Internationale']
 
@@ -432,6 +430,10 @@ pivot_table = pd.pivot_table(
 
 # Calculate percentages for each cell
 percentage_table = (pivot_table.div(pivot_table.iloc[-1, 0], axis=1) * 100).round(2)
+
+# Rename columns
+pivot_table.columns = ['Total']
+percentage_table.columns = ['Pourcentage']
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
