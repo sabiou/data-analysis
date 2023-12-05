@@ -339,3 +339,25 @@ pivot_table_all_records_antiep = pd.concat([pivot_table_all_records_antiep, tota
 st.write("## Pivot Table for All Records Corresponding to 'Antiepileptiques'")
 st.write(pivot_table_all_records_antiep)
 
+
+
+# Create a pivot table for PAYS DE PROVENANCE
+pivot_table_pays = df.pivot_table(
+    index=['PAYS DE PROVENANCE'],
+    columns='ANNEE',
+    values='QUANTITE A COMMANDER( BOITES)',
+    aggfunc='sum',
+    fill_value=0,
+    margins=True,
+    margins_name='Total'
+)
+
+# Calculate percentages for each cell
+percentage_table_pays = (pivot_table_pays.div(pivot_table_pays.loc[:, 'Total'], axis=0) * 100).round(2)
+
+# Add a 'Percentage' column
+percentage_table_pays['Percentage'] = (pivot_table_pays['Total'] / pivot_table_pays['Total'].loc['Total'] * 100).round(2)
+
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table for 'PAYS DE PROVENANCE'")
+st.write(pivot_table_pays.join(percentage_table_pays['Percentage']))
