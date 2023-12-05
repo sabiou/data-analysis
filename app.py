@@ -479,9 +479,6 @@ pivot_table = pd.pivot_table(
     margins_name='Total'
 )
 
-# Rename columns to avoid conflicts
-pivot_table.columns = [f"{col[0]}_{col[1]}" for col in pivot_table.columns]
-
 # Calculate percentages for each cell
 percentage_table = (pivot_table.div(pivot_table['Total_Total'], axis=0) * 100).round(2)
 
