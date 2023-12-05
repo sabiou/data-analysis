@@ -418,8 +418,8 @@ pivot_table_profile_forme['Pourcentage'] = (pivot_table_profile_forme['Total'] /
 total_general_row = pd.DataFrame(df.sum()).T
 total_general_row['Profil'] = 'Total General'
 total_general_row['Pourcentage'] = 100.0  # Assuming 100% for the 'Percentage' column
-df = pd.concat([df, total_general_row], ignore_index=True)
+updated_df = pd.concat([df, total_general_row], ignore_index=True)
 
 # Display the updated pivot table with Streamlit
 st.write("## Pivot Table for Profiles and FORME PHARMACEUTIQUE'")
-st.write(df)
+st.write(updated_df)
