@@ -198,3 +198,40 @@ pivot_table_all_records_off = pd.concat([pivot_table_all_records_off, total_gene
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Officine'")
 st.write(pivot_table_all_records_off)
+
+
+# Filter the data for the value "Classe therapeutiques" in the "Profil" column
+data_ct = df[df['Profil'] == 'Classes Therapeutiques']
+
+# Get unique DEMANDEUR values corresponding to ONG Internationale
+demandeurs_ct = data_ct['DEMANDEUR'].unique()
+
+# Remove spaces from column names in the original DataFrame
+df.columns = df.columns.str.strip()
+
+# Create a new DataFrame with records corresponding to ONG Internationale in the DEMANDEUR column
+df_ct_records = df[df['DEMANDEUR'].isin(demandeurs_ct)]
+
+# Create a pivot table for the new DataFrame
+pivot_table_all_records_ct = df_ct_records.pivot_table(
+    index=['DEMANDEUR'],
+    columns='ANNEE', 
+    values='QUANTITE A COMMANDER( BOITES)', 
+    aggfunc='sum', 
+    fill_value=0
+)
+
+# Add a 'Total' column
+pivot_table_all_records_ct['Total'] = pivot_table_all_records_ct.sum(axis=1)
+
+# Calculate the percentage for each row
+pivot_table_all_records_ct['Percentage'] = (pivot_table_all_records_ct['Total'] / pivot_table_all_records_ct['Total'].sum() * 100).round(3)
+
+# Add a 'Total General' row
+total_general_row_ct = pd.DataFrame(pivot_table_all_records_ct.sum()).T
+total_general_row_ct.index = ['Total General']
+pivot_table_all_records_ct = pd.concat([pivot_table_all_records_ct, total_general_row_ct])
+
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table for All Records Corresponding to 'Officine'")
+st.write(pivot_table_all_records_ct)
