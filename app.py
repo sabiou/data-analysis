@@ -465,3 +465,23 @@ updated_frame_classe = pd.concat([pivot_table_profile_classe, total_general_row_
 # Display the updated DataFrame
 st.write("## Updated DataFrame with 'Total General'")
 st.write(updated_frame_classe)
+
+### 
+# Create a pivot table
+pivot_table = pd.pivot_table(
+    df,
+    values='QUANTITE A COMMANDER( BOITES)',
+    index=['CONTINENT'],
+    columns=['ANNEE'],
+    aggfunc='sum',
+    fill_value=0,
+    margins=True,
+    margins_name='Total'
+)
+
+# Calculate percentages for each cell
+percentage_table = (pivot_table.div(pivot_table.iloc[:, -1], axis=0) * 100).round(2)
+
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table")
+st.write(pivot_table.join(percentage_table))
