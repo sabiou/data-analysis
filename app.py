@@ -25,6 +25,9 @@ pivot_table = pd.pivot_table(
 # Calculate percentages only for the 'Total' column
 percentage_table = (pivot_table.div(pivot_table.iloc[:, -1], axis=0) * 100).round(2)
 
+# Add a 'Percentage' column for each 'Profil'
+percentage_table['Percentage'] = (percentage_table['Total'] / percentage_table['Total'].sum() * 100).round(2)
+
 # Display the pivot table using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table)
+st.write(percentage_table)
