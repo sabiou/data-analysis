@@ -10,28 +10,35 @@ locale.setlocale(locale.LC_NUMERIC, 'fr_FR.UTF-8')
 file_path = "database.xlsx"
 df = pd.read_excel(file_path)
 
+# Filtrer les données pour la valeur "Centrale pharmaceutique" dans la colonne "Profil"
+data_centrale = df[df['Profil'] == 'Centrale pharmaceutique']
 
-st.write("## Displaying DataFrame")
-st.write(df)
-
-# Create a pivot table with 'DEMANDEUR' as the index
-pivot_table_demandeur = pd.pivot_table(
-    df,
-    values='QUANTITE A COMMANDER( BOITES)',
-    index=['DEMANDEUR'],
-    columns=['ANNEE'],
-    aggfunc={'QUANTITE A COMMANDER( BOITES)': 'sum'},
-    margins=True,
-    margins_name='Total'
+# Création d'une table pivot pour les données de "Centrale pharmaceutique"
+pivot_table_centrale = data_centrale.pivot_table(
+    index='DEMANDEUR', 
+    columns='ANNEE', 
+    values='QUANTITE A COMMANDER( BOITES)', 
+    aggfunc='sum', 
+    fill_value=0
 )
 
-# Calculate percentages for each cell
-percentage_table_demandeur = (pivot_table_demandeur.div(pivot_table_demandeur.loc[:, 'Total'], axis=0) * 100).round(2)
+# Ajout d'une colonne Total
+pivot_table_centrale['Total'] = pivot_table_centrale.sum(axis=1)
 
-# Add a 'Percentage' column
-percentage_table_demandeur['Percentage'] = (pivot_table_demandeur['Total'] / pivot_table_demandeur['Total'].loc['Total'] * 100).round(2)
+# Calcul du pourcentage global pour chaque ligne
+pivot_table_centrale['Pourcentage'] = (pivot_table_centrale['Total'] / pivot_table_centrale['Total'].sum() * 100).round(3)
 
-# Display the new pivot table with original values and percentage using Streamlit
-st.write("## Pivot Table with DEMANDEUR as Index")
-st.write(pivot_table_demandeur.join(percentage_table_demandeur['Percentage']))
+# Ajout de la ligne "Total générale"
+total_generale_centrale = pd.DataFrame(pivot_table_centrale.sum()).T
+total_generale_centrale.index = ['Total générale']
+pivot_table_centrale = pd.concat([pivot_table_centrale, total_generale_centrale])
 
+# Création d'un nouveau DataFrame avec le tableau de répartition pour "Centrale pharmaceutique"
+tableau_repartition_centrale_df = pd.DataFrame(pivot_table_centrale[['Total', 'Pourcentage']])
+
+# Renommer les colonnes pour le Streamlit
+pivot_table_centrale = pivot_table_centrale.rename_axis(columns={'ANNEE': 'Centrales pharmaceutiques'})
+
+# Affichage du tableau pivot pour "Centrale pharmaceutique"
+st.write("## Pivot Table for 'Centrale pharmaceutique'")
+st.write(pivot_table_centrale)
