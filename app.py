@@ -467,6 +467,8 @@ st.write("## Updated DataFrame with 'Total General'")
 st.write(updated_frame_classe)
 
 ### 
+
+# Assuming your DataFrame is named 'df'
 # Create a pivot table
 pivot_table = pd.pivot_table(
     df,
