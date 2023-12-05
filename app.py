@@ -27,7 +27,7 @@ pivot_table = pd.pivot_table(
 )
 
 # Calculate percentages for each cell
-percentage_table = (pivot_table.div(pivot_table.loc[:, 'Total'], axis=0) * 100).round(3)
+percentage_table = (pivot_table.div(pivot_table.loc[:, 'Total'], axis=0) * 100).round(2)
 
 # Add a 'Percentage' column
 percentage_table['Percentage'] = (pivot_table['Total'] / pivot_table['Total'].loc['Total'] * 100).round(3)
