@@ -75,3 +75,17 @@ pivot_table_all_records = pd.concat([pivot_table_all_records, total_general_row]
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutique'")
 st.write(pivot_table_all_records)
+
+
+# Create a bar plot using Altair
+bar_chart = alt.Chart(pivot_table_all_records.reset_index()).mark_bar().encode(
+    x=alt.X('Percentage:Q', axis=alt.Axis(title='Percentage')),
+    y=alt.Y('DEMANDEUR:N', sort='-x', axis=alt.Axis(title='DEMANDEUR')),
+    tooltip=['Percentage']
+).properties(
+    title="Percentage Distribution of 'Centrale pharmaceutique' Records by DEMANDEUR"
+)
+
+# Display the bar chart using Streamlit
+st.write("## Bar Plot for Percentage Distribution")
+st.altair_chart(bar_chart, use_container_width=True)
