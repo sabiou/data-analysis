@@ -389,6 +389,12 @@ st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
 
 
 
+
+# Assuming df is your original DataFrame
+# If not, load your data using pd.read_excel or other appropriate methods
+file_path = "database.xlsx"
+df = pd.read_excel(file_path)
+
 # Remove spaces from column names
 df.columns = df.columns.str.strip()
 
@@ -409,8 +415,10 @@ percentage_table_profile_forme = (pivot_table_profile_forme.div(pivot_table_prof
 # Add a 'Percentage' column
 percentage_table_profile_forme['Percentage'] = (pivot_table_profile_forme['Total'] / pivot_table_profile_forme['Total'].loc['Total'] * 100).round(2)
 
-# Reset the index to use "Profil" and "FORME PHARMACEUTIQUE" as columns
+# Reset the index and merge levels to have a 2D table
 percentage_table_profile_forme = percentage_table_profile_forme.reset_index()
+percentage_table_profile_forme['Profile_Forme'] = percentage_table_profile_forme['Profil'] + ' - ' + percentage_table_profile_forme['FORME PHARMACEUTIQUE']
+percentage_table_profile_forme = percentage_table_profile_forme.drop(['Profil', 'FORME PHARMACEUTIQUE'], axis=1).set_index('Profile_Forme')
 
 # Display the pivot table using Streamlit
 st.write("## Pivot Table for 'Profil' and 'FORME PHARMACEUTIQUE'")
