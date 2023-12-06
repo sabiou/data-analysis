@@ -511,6 +511,9 @@ pivot_table_vd = pivot_table_vd.drop(columns=pivot_table_vd.columns[:-1])
 # Rename the Total row to Total Générale
 pivot_table_vd.index = pivot_table_vd.index.where(pivot_table_vd.index != 'Total General', 'Total Générale')
 
+# Add a Pourcentage column to the pivot table
+pivot_table_vd['Pourcentage'] = percentage_vd.loc[:, 'Total General']
+
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table_vd)
