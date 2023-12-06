@@ -468,7 +468,6 @@ st.write(updated_frame_classe)
 
 ### 
 
-# Create pivot table
 pivot_table_cont = pd.pivot_table(
     df,
     values='QUANTITE A COMMANDER( BOITES)',
@@ -476,11 +475,14 @@ pivot_table_cont = pd.pivot_table(
     columns=['ANNEE'],
     aggfunc={'QUANTITE A COMMANDER( BOITES)': 'sum'},
     margins=True,
-    margins_name='Total'
+    margins_name='Total General'
 )
 
 # Calculate percentages for each cell
-percentage_cont = (pivot_table_cont.div(pivot_table_cont.loc[:, 'Total'], axis=0) * 100).round(2)
+percentage_cont = (pivot_table_cont.div(pivot_table_cont.loc[:, 'Total General'], axis=0) * 100).round(2)
+
+# Calculate percentages for each cell
+# percentage_cont = (pivot_table_cont.div(pivot_table_cont.loc[:, 'Total'], axis=0) * 100).round(2)
 
 # Add a 'Percentage' column
 percentage_cont['Percentage'] = (pivot_table_cont['Total'] / pivot_table_cont['Total'].loc['Total'] * 100).round(2)
