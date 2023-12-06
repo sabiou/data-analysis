@@ -505,6 +505,16 @@ pivot_table_vd = pd.pivot_table(
 # Calculate percentages for each cell
 percentage_vd = (pivot_table_vd.div(pivot_table_vd.loc[:, 'Total General'], axis=0) * 100).round(2)
 
+# Remove the columns corresponding to ANNEE values
+pivot_table_vd = pivot_table_vd.drop(columns=pivot_table_vd.columns[:-1])
+
+# Rename the Total row to Total Générale
+pivot_table_vd.index = pivot_table_vd.index.where(pivot_table_vd.index != 'Total General', 'Total Générale')
+
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table_vd)
+
+# Display the pivot table with percentages
+st.write("## Pivot Table with Percentages")
+st.write(percentage_vd)
