@@ -495,7 +495,7 @@ st.write(pivot_table_cont.join(percentage_cont['Percentage']))
 pivot_table_vd = pd.pivot_table(
     df,
     values='QUANTITE TOTAL A IMPORTER( MG)',
-    index=['VOIE D'ADMINISTRATION'],
+    index=['VOIE D\'ADMINISTRATION'],
     columns=['ANNEE'],
     aggfunc={'QUANTITE TOTAL A IMPORTER( MG)': 'sum'},
     margins=True,
