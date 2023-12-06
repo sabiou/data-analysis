@@ -502,9 +502,14 @@ pivot_table_vd = pd.pivot_table(
     margins_name='Total'
 )
 
+
 # Calculate percentages for each cell
-percentage_vd = (pivot_table_vd.div(pivot_table_vd.loc[:, 'Total'], axis=0) * 100).round(2)
+percentage_forme_pharma = (pivot_table_forme_pharma.div(pivot_table_forme_pharma.loc[:, 'Total'], axis=0) * 100).round(2)
+
+# Remove ANNEE columns
+pivot_table_forme_pharma = pivot_table_forme_pharma['Total']
+percentage_forme_pharma = percentage_forme_pharma['Total']
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table_vd)
+st.write(pivot_table_forme_pharma)
