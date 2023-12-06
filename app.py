@@ -6,7 +6,7 @@ from io import StringIO
 
 
 # Set the locale to French
-locale.setlocale(locale.LC_NUMERIC, 'fr_FR.UTF-8')
+locale.setlocale(locale.LC_NUMERIC, 'fr_FR.utf8')
 
 file_path = "database.xlsx"
 df = pd.read_excel(file_path)
