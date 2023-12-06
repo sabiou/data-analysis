@@ -508,29 +508,3 @@ percentage_vd = (pivot_table_vd.div(pivot_table_vd.loc[:, 'Total General'], axis
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table_vd)
-
-
-# Create pivot table
-pivot_table_administration = pd.pivot_table(
-    df,
-    values='QUANTITE TOTAL A IMPORTER( MG)',
-    index=['VOIE D\'ADMINISTRATION'],
-    aggfunc={'QUANTITE TOTAL A IMPORTER( MG)': 'sum'},
-    margins=True,
-    margins_name='Total'
-)
-
-# Calculate percentages for each cell
-percentage_administration = (pivot_table_administration.div(pivot_table_administration.loc[:, 'Total'], axis=0) * 100).round(2)
-
-# Remove unnecessary columns
-pivot_table_administration = pivot_table_administration[['QUANTITE TOTAL A IMPORTER( MG)', 'Total']]
-percentage_administration = percentage_administration[['QUANTITE TOTAL A IMPORTER( MG)', 'Total']]
-
-# Rename the Total row to Total Générale
-pivot_table_administration.index = pivot_table_administration.index.where(pivot_table_administration.index != 'Total', 'Total Générale')
-percentage_administration.index = percentage_administration.index.where(percentage_administration.index != 'Total', 'Total Générale')
-
-# Display the pivot table with original values and percentage using Streamlit
-st.write("## Pivot Table")
-st.write(pivot_table_administration)
