@@ -497,7 +497,7 @@ pivot_table_vd = pd.pivot_table(
     values='QUANTITE TOTAL A IMPORTER( MG)',
     index=['VOIE D\'ADMINISTRATION'],
     columns=['ANNEE'],
-    aggfunc={'': 'sum'},
+    aggfunc={'QUANTITE TOTAL A IMPORTER( MG)': 'sum'},
     margins=True,
     margins_name='Total General'
 )
