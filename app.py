@@ -509,3 +509,28 @@ pivot_table_vd['Pourcentage'] = percentage_vd['QUANTITE TOTAL A IMPORTER( MG)']
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table_vd)
+
+
+
+###
+
+# Création d'une table pivot avec comme index la colonne "DCI" et les colonnes "ANNEE"
+pivot_table = df.pivot_table(index='DCI', columns='ANNEE', values='TENEUR TOTALE(BASE ANHYDRE)/GRS', aggfunc='sum', fill_value=0)
+
+# Ajout d'une colonne "Total général"
+pivot_table['Total général'] = pivot_table.sum(axis=1)
+
+# Calcul du pourcentage global pour chaque ligne
+pivot_table['Pourcentage'] = (pivot_table['Total général'] / pivot_table['Total général'].sum() * 100).round(2)
+
+# Création d'un nouveau DataFrame avec le tableau de répartition
+tableau_repartition_df = pd.DataFrame(pivot_table[['Total général', 'Pourcentage']])
+
+pivot_table_sorted = pivot_table.sort_values(by='Pourcentage', ascending=False)
+
+# Sélectionner les 6 premiers
+top_10 = pivot_table_sorted.head(10)
+
+# Display the pivot table using Streamlit
+st.write("## Pivot Table")
+st.write(top_10)
