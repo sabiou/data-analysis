@@ -490,7 +490,6 @@ st.write(pivot_table_cont.join(percentage_cont['Percentage']))
 
 
 ####
-
 # Create pivot table
 pivot_table_vd = pd.pivot_table(
     df,
@@ -503,12 +502,6 @@ pivot_table_vd = pd.pivot_table(
 
 # Calculate percentages for each row
 percentage_vd = (pivot_table_vd / pivot_table_vd.loc['Total Générale', 'QUANTITE TOTAL A IMPORTER( MG)'] * 100).round(2)
-
-# Drop the 'Total Générale' row from the original pivot table
-pivot_table_vd = pivot_table_vd.drop('Total Générale')
-
-# Rename the 'Total Générale' row to 'Total générale'
-pivot_table_vd.index = pivot_table_vd.index.where(pivot_table_vd.index != 'Total Générale', 'Total générale')
 
 # Add a 'Pourcentage' column to the pivot table
 pivot_table_vd['Pourcentage'] = percentage_vd['QUANTITE TOTAL A IMPORTER( MG)']
