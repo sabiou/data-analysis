@@ -496,20 +496,22 @@ pivot_table_vd = pd.pivot_table(
     df,
     values='QUANTITE TOTAL A IMPORTER( MG)',
     index=['VOIE D\'ADMINISTRATION'],
-    columns='ANNEE',
     aggfunc={'QUANTITE TOTAL A IMPORTER( MG)': 'sum'},
     margins=True,
-    margins_name='Total General'
+    margins_name='Total Générale'
 )
 
-# Calculate percentages for each cell
-percentage_vd = (pivot_table_vd.div(pivot_table_vd.loc[:, 'Total General'], axis=0) * 100).round(2)
+# Calculate percentages for each row
+percentage_vd = (pivot_table_vd / pivot_table_vd.loc['Total Générale', 'QUANTITE TOTAL A IMPORTER( MG)'] * 100).round(2)
 
-# Remove the columns corresponding to ANNEE values
-pivot_table_vd = pivot_table_vd.drop(columns=pivot_table_vd.columns[:-1])
+# Drop the 'Total Générale' row from the original pivot table
+pivot_table_vd = pivot_table_vd.drop('Total Générale')
 
-# Rename the Total row to Total Générale
-pivot_table_vd.index = pivot_table_vd.index.where(pivot_table_vd.index != 'Total General', 'Total Générale')
+# Rename the 'Total Générale' row to 'Total générale'
+pivot_table_vd.index = pivot_table_vd.index.where(pivot_table_vd.index != 'Total Générale', 'Total générale')
+
+# Add a 'Pourcentage' column to the pivot table
+pivot_table_vd['Pourcentage'] = percentage_vd['QUANTITE TOTAL A IMPORTER( MG)']
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
