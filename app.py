@@ -487,3 +487,28 @@ percentage_cont['Percentage'] = (pivot_table_cont['Total'] / pivot_table_cont['T
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table_cont.join(percentage_cont['Percentage']))
+
+
+####
+
+# Create pivot table
+pivot_table_vd = pd.pivot_table(
+    df,
+    values='QUANTITE TOTAL A IMPORTER( MG)',
+    index=['VOIE D'ADMINISTRATION'],
+    columns=['ANNEE'],
+    aggfunc={'QUANTITE TOTAL A IMPORTER( MG)': 'sum'},
+    margins=True,
+    margins_name='Total'
+)
+
+# Calculate percentages for each cell
+percentage_vd = (pivot_table_vd.div(pivot_table_vd.loc[:, 'Total'], axis=0) * 100).round(2)
+
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table")
+st.write(pivot_table_vd)
+
+# Display the pivot table with percentages
+st.write("## Pivot Table with Percentages")
+st.write(percentage_vd)
