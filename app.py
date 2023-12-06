@@ -514,7 +514,3 @@ pivot_table_vd.index = pivot_table_vd.index.where(pivot_table_vd.index != 'Total
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table_vd)
-
-# Display the pivot table with percentages
-st.write("## Pivot Table with Percentages")
-st.write(percentage_vd)
