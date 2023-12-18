@@ -70,6 +70,7 @@ pivot_table_all_records = df_centrale_records.pivot_table(
     columns='ANNEE', 
     values='QUANTITE A COMMANDER( BOITES)', 
     aggfunc='sum', 
+    margins=True,
     fill_value=0
 )
 
