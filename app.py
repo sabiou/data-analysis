@@ -13,8 +13,7 @@ df = pd.read_excel(file_path)
 
 
 st.write("## Displaying DataFrame")
-st.dataframe(df.head().style.format(thousands=""))
-st.write(df)
+st.write(df.head().style.format(thousands=""))
 
 
 def format_with_thousand_separator(val):
@@ -33,7 +32,6 @@ pivot_table = pd.pivot_table(
     margins=True,
     margins_name='Total',
     fill_value=0,
-    format=format_with_thousand_separator
 )
 
 #pivot_table.style.format(format_with_thousand_separator)
