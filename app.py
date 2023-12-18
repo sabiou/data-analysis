@@ -493,7 +493,7 @@ percentage_cont['Pourcentage'] = (pivot_table_cont['Total'] / pivot_table_cont['
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table_cont.join(percentage_cont['Pourcentage'].style.format(thousands="", precision=2, decimal=",")))
+st.write(pivot_table_cont.join(percentage_cont['Pourcentage']).style.format(thousands="", precision=2, decimal=","))
 
 
 ####
