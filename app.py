@@ -489,11 +489,11 @@ pivot_table_cont = pd.pivot_table(
 percentage_cont = (pivot_table_cont.div(pivot_table_cont.loc[:, 'Total'], axis=0) * 100).round(2)
 
 # Add a 'Percentage' column
-percentage_cont['Percentage'] = (pivot_table_cont['Total'] / pivot_table_cont['Total'].loc['Total'] * 100).round(2)
+percentage_cont['Pourcentage'] = (pivot_table_cont['Total'] / pivot_table_cont['Total'].loc['Total'] * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table_cont.join(percentage_cont['Percentage']))
+st.write(pivot_table_cont.join(percentage_cont['Pourcentage'].style.format(thousands="", precision=2, decimal=",")))
 
 
 ####
