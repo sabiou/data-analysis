@@ -219,15 +219,13 @@ pivot_table_classes = df.pivot_table(
 percentage_table_classes = (pivot_table_classes.div(pivot_table_classes.loc[:, 'Total'], axis=0) * 100).round(2)
 
 # Add a 'Percentage' column
-percentage_table_classes['Percentage'] = (pivot_table_classes['Total'] / pivot_table_classes['Total'].loc['Total'] * 100).round(2)
+percentage_table_classes['Pourcentage'] = (pivot_table_classes['Total'] / pivot_table_classes['Total'].loc['Total'] * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for 'Classes Therapeutiques'")
-st.write(pivot_table_classes.join(percentage_table_classes['Percentage']))
+st.write(pivot_table_classes.join(percentage_table_classes['Percentage']).style.format(thousands="", precision=2, decimal=","))
 
 
-
-# 
 data_dci = df[df['Classes Therapeutiques'] == 'Antalgiques/Analgésiques']
 
 # Remove spaces from column names in data_ong
