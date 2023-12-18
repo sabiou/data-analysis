@@ -17,6 +17,12 @@ st.dataframe(df.head().style.format(thousands=""))
 st.write(df)
 
 
+def format_with_thousand_separator(val):
+    if isinstance(val, (int, float)):
+        return "{:,.0f}".format(val)
+    return val
+
+
 # Create a pivot table
 pivot_table = pd.pivot_table(
     df,
@@ -28,6 +34,8 @@ pivot_table = pd.pivot_table(
     margins_name='Total',
     fill_value=0,
 )
+
+pivot_table.style.format(format_with_thousand_separator)
 
 # Calculate percentages for each cell
 percentage_table = (pivot_table.div(pivot_table.loc[:, 'Total'], axis=0) * 100).round(2)
