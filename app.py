@@ -125,7 +125,7 @@ pivot_table_all_records_ong = pd.concat([pivot_table_all_records_ong, total_gene
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'ONG Internationale'")
-st.write(pivot_table_all_records_ong.format(thousands="", precision=2, decimal=","))
+st.write(pivot_table_all_records_ong.style.format(thousands="", precision=2, decimal=","))
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
