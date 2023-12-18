@@ -10,10 +10,10 @@ locale.setlocale(locale.LC_NUMERIC, 'fr_FR.utf8')
 
 file_path = "database.xlsx"
 df = pd.read_excel(file_path)
+df.head().style.format(thousands="")
 
 
 st.write("## Displaying DataFrame")
-st.dataframe(df.head().style.format(thousands=""))
 st.write(df)
 
 
