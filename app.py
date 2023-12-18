@@ -540,4 +540,4 @@ top_10 = pivot_table_sorted.head(10)
 
 # Display the pivot table using Streamlit
 st.write("## Pivot Table")
-st.write(top_10)
+st.write(top_10.style.format(thousands="", precision=2, decimal=","))
