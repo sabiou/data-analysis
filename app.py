@@ -19,7 +19,7 @@ st.write(df)
 
 # Create a pivot table
 pivot_table = pd.pivot_table(
-    df(df.head().style.format(thousands="")),
+    df,
     values='QUANTITE A COMMANDER( BOITES)',
     index=['Profil'],
     columns=['ANNEE'],
