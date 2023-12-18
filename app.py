@@ -156,7 +156,7 @@ pivot_table_all_records_ong = df_ong_records.pivot_table(
 pivot_table_all_records_ong['Total'] = pivot_table_all_records_ong.sum(axis=1)
 
 # Calculate the percentage for each row
-pivot_table_all_records_ong['Percentage'] = (pivot_table_all_records_ong['Total'] / pivot_table_all_records_ong['Total'].sum() * 100).round(3)
+pivot_table_all_records_ong['Pourcentage'] = (pivot_table_all_records_ong['Total'] / pivot_table_all_records_ong['Total'].sum() * 100).round(3)
 
 # Add a 'Total General' row
 total_general_row_ong = pd.DataFrame(pivot_table_all_records_ong.sum()).T
@@ -165,7 +165,7 @@ pivot_table_all_records_ong = pd.concat([pivot_table_all_records_ong, total_gene
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'ONG Internationale'")
-st.write(pivot_table_all_records_ong)
+st.write(pivot_table_all_records_ong.style.format(thousands="", precision=2, decimal=","))
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
