@@ -223,7 +223,7 @@ percentage_table_classes['Pourcentage'] = (pivot_table_classes['Total'] / pivot_
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for 'Classes Therapeutiques'")
-st.write(pivot_table_classes.join(percentage_table_classes['Percentage'].style.format(thousands="", precision=2, decimal=",")))
+st.write(pivot_table_classes.join(percentage_table_classes['Pourcentage'].style.format(thousands="", precision=2, decimal=",")))
 
 
 data_dci = df[df['Classes Therapeutiques'] == 'Antalgiques/Analgésiques']
