@@ -31,11 +31,11 @@ pivot_table = pd.pivot_table(
 percentage_table = (pivot_table.div(pivot_table.loc[:, 'Total'], axis=0) * 100).round(2)
 
 # Add a 'Percentage' column
-percentage_table['Percentage'] = (pivot_table['Total'] / pivot_table['Total'].loc['Total'] * 100).round(2)
+percentage_table['Pourcentage'] = (pivot_table['Total'] / pivot_table['Total'].loc['Total'] * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table.join(percentage_table['Percentage']))
+st.write(pivot_table.join(percentage_table['Pourcentage']))
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
