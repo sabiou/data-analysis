@@ -42,8 +42,6 @@ percentage_table = (pivot_table.div(pivot_table.loc[:, 'Total'], axis=0) * 100).
 percentage_table['Pourcentage'] = (pivot_table['Total'] / pivot_table['Total'].loc['Total'] * 100).round(2)
 
 
-#percentage_table.style.format(format_with_thousand_separator)
-
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table['Pourcentage']).style.format(thousands="", precision=2, decimal=","))
@@ -86,7 +84,7 @@ pivot_table_all_records = pd.concat([pivot_table_all_records, total_general_row]
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutique'")
-st.write(pivot_table_all_records.style.format(thousands="", precision=0, decimal=","))
+st.write(pivot_table_all_records.style.format(thousands="", precision=2, decimal=","))
 
 
 
