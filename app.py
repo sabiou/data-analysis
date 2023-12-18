@@ -293,7 +293,7 @@ pivot_table_all_records_anx = df_anx_records.pivot_table(
 pivot_table_all_records_anx['Total'] = pivot_table_all_records_anx.sum(axis=1)
 
 # Calculate the percentage for each row
-pivot_table_all_records_anx['Percentage'] = (pivot_table_all_records_anx['Total'] / pivot_table_all_records_anx['Total'].sum() * 100).round(3)
+pivot_table_all_records_anx['Pourcentage'] = (pivot_table_all_records_anx['Total'] / pivot_table_all_records_anx['Total'].sum() * 100).round(3)
 
 # Add a 'Total General' row
 total_general_row_anx = pd.DataFrame(pivot_table_all_records_anx.sum()).T
@@ -302,7 +302,7 @@ pivot_table_all_records_anx = pd.concat([pivot_table_all_records_anx, total_gene
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Anxiolytiques'")
-st.write(pivot_table_all_records_anx)
+st.write(pivot_table_all_records_anx.style.format(thousands="", precision=2, decimal=","))
 
 
 # 
@@ -333,7 +333,7 @@ pivot_table_all_records_antiep = df_antiep_records.pivot_table(
 pivot_table_all_records_antiep['Total'] = pivot_table_all_records_antiep.sum(axis=1)
 
 # Calculate the percentage for each row
-pivot_table_all_records_antiep['Percentage'] = (pivot_table_all_records_antiep['Total'] / pivot_table_all_records_antiep['Total'].sum() * 100).round(3)
+pivot_table_all_records_antiep['Pourcentage'] = (pivot_table_all_records_antiep['Total'] / pivot_table_all_records_antiep['Total'].sum() * 100).round(3)
 
 # Add a 'Total General' row
 total_general_row_antiep = pd.DataFrame(pivot_table_all_records_antiep.sum()).T
@@ -342,7 +342,7 @@ pivot_table_all_records_antiep = pd.concat([pivot_table_all_records_antiep, tota
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Antiepileptiques'")
-st.write(pivot_table_all_records_antiep)
+st.write(pivot_table_all_records_antiep.style.format(thousands="", precision=2, decimal=","))
 
 
 # Create a pivot table for PAYS DE PROVENANCE
@@ -360,11 +360,11 @@ pivot_table_pays = df.pivot_table(
 percentage_table_pays = (pivot_table_pays.div(pivot_table_pays.loc[:, 'Total'], axis=0) * 100).round(2)
 
 # Add a 'Percentage' column
-percentage_table_pays['Percentage'] = (pivot_table_pays['Total'] / pivot_table_pays['Total'].loc['Total'] * 100).round(2)
+percentage_table_pays['Pourcentage'] = (pivot_table_pays['Total'] / pivot_table_pays['Total'].loc['Total'] * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for 'PAYS DE PROVENANCE'")
-st.write(pivot_table_pays.join(percentage_table_pays['Percentage']))
+st.write(pivot_table_pays.join(percentage_table_pays['Pourcentage']).style.format(thousands="", precision=2, decimal=","))
 
 
 # Remove spaces from column names
@@ -385,11 +385,11 @@ pivot_table_formes = df.pivot_table(
 percentage_table_formes = (pivot_table_formes.div(pivot_table_formes.loc[:, 'Total'], axis=0) * 100).round(2)
 
 # Add a 'Percentage' column
-percentage_table_formes['Percentage'] = (pivot_table_formes['Total'] / pivot_table_formes['Total'].loc['Total'] * 100).round(2)
+percentage_table_formes['Pourcentage'] = (pivot_table_formes['Total'] / pivot_table_formes['Total'].loc['Total'] * 100).round(2)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for 'FORME PHARMACEUTIQUE'")
-st.write(pivot_table_formes.join(percentage_table_formes['Percentage']))
+st.write(pivot_table_formes.join(percentage_table_formes['Pourcentage']).style.format(thousands="", precision=2, decimal=","))
 
 
 # Remove spaces from column names
