@@ -84,8 +84,7 @@ pivot_table_all_records = pd.concat([pivot_table_all_records, total_general_row]
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutique'")
-st.write(pivot_table_all_records.style.format(thousands="", precision=2, decimal=","))
-
+st.write(pivot_table_all_records['Pourcentage'].style.format(thousands="", precision=2, decimal=","))
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
