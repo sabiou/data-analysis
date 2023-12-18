@@ -10,23 +10,23 @@ locale.setlocale(locale.LC_NUMERIC, 'fr_FR.utf8')
 
 file_path = "database.xlsx"
 df = pd.read_excel(file_path)
-df.head().style.format(thousands="")
 
 
 st.write("## Displaying DataFrame")
+st.dataframe(df.head().style.format(thousands=""))
 st.write(df)
 
 
 # Create a pivot table
 pivot_table = pd.pivot_table(
-    df,
+    df(df.head().style.format(thousands="")),
     values='QUANTITE A COMMANDER( BOITES)',
     index=['Profil'],
     columns=['ANNEE'],
     aggfunc={'QUANTITE A COMMANDER( BOITES)': 'sum'},
     margins=True,
     margins_name='Total',
-    fill_value=0
+    fill_value=0,
 )
 
 # Calculate percentages for each cell
