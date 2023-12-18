@@ -444,7 +444,7 @@ percentage_table.columns = ['Pourcentage']
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table.join(percentage_table, rsuffix='_Pourcentage'))
+st.write(pivot_table.join(percentage_table, rsuffix='_Pourcentage').style.format(thousands="", precision=2, decimal=","))
 
 ######
 
