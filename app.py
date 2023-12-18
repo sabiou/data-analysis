@@ -10,7 +10,6 @@ locale.setlocale(locale.LC_NUMERIC, 'fr_FR.utf8')
 
 file_path = "database.xlsx"
 df = pd.read_excel(file_path)
-df = df.style.highlight_null(props="color: transparent;") 
 
 
 st.write("## Displaying DataFrame")
