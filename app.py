@@ -18,7 +18,7 @@ st.write(df.head().style.format(thousands=""))
 
 def format_with_thousand_separator(val):
     if isinstance(val, (int, float)):
-        return "{:,.0f}".format(val)
+        return '{:,.2f}'.format(val).replace('.', ',')
     return val
 
 
@@ -47,6 +47,7 @@ percentage_table['Pourcentage'] = (pivot_table['Total'] / pivot_table['Total'].l
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table['Pourcentage']).style.format(thousands="", precision=2))
+st.write(pivot_table.join(percentage_table['Pourcentage']).style.format(format_with_thousand_separator))
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
