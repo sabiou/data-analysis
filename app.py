@@ -515,7 +515,7 @@ pivot_table_vd['Pourcentage'] = percentage_vd['QUANTITE TOTAL A IMPORTER( MG)']
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table_vd)
+st.write(pivot_table_vd.style.format(thousands="", precision=2, decimal=","))
 
 
 
