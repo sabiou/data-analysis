@@ -6,7 +6,7 @@ from io import StringIO
 
 
 # Set the locale to French
-locale.setlocale(locale.LC_NUMERIC, 'fr_FR.utf8')
+locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 
 file_path = "database.xlsx"
 df = pd.read_excel(file_path)
@@ -42,7 +42,7 @@ percentage_table = (pivot_table.div(pivot_table.loc[:, 'Total'], axis=0) * 100).
 percentage_table['Pourcentage'] = (pivot_table['Total'] / pivot_table['Total'].loc['Total'] * 100).round(2)
 
 
-percentage_table.style.format(format_with_thousand_separator)
+#percentage_table.style.format(format_with_thousand_separator)
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
