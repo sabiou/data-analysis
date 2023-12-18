@@ -421,7 +421,7 @@ updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 
 # Display the updated DataFrame
 st.write("## Updated DataFrame with 'Total General'")
-st.write(updated_frame)
+st.write(updated_frame.style.format(thousands="", precision=2, decimal=","))
 
 ####
 
