@@ -46,8 +46,7 @@ percentage_table['Pourcentage'] = (pivot_table['Total'] / pivot_table['Total'].l
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table.join(percentage_table['Pourcentage']).style.format(thousands="", precision=2))
-st.write(pivot_table.join(percentage_table['Pourcentage']).style.format(format_with_thousand_separator))
+st.write(pivot_table.join(percentage_table['Pourcentage']).style.format(thousands="", precision=2, decimal=","))
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
