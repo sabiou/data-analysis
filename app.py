@@ -70,7 +70,6 @@ pivot_table_all_records = df_centrale_records.pivot_table(
     columns='ANNEE', 
     values='QUANTITE A COMMANDER( BOITES)', 
     aggfunc='sum', 
-    margins=True,
     fill_value=0
 )
 
@@ -78,7 +77,7 @@ pivot_table_all_records = df_centrale_records.pivot_table(
 pivot_table_all_records['Total'] = pivot_table_all_records.sum(axis=1)
 
 # Calculate the percentage for each row
-pivot_table_all_records['Percentage'] = (pivot_table_all_records['Total'] / pivot_table_all_records['Total'].sum() * 100).round(2)
+pivot_table_all_records['Percentage'] = (pivot_table_all_records['Total'] / pivot_table_all_records['Total'].sum() * 100).round(3)
 
 # Add a 'Total General' row
 total_general_row = pd.DataFrame(pivot_table_all_records.sum()).T
@@ -87,7 +86,7 @@ pivot_table_all_records = pd.concat([pivot_table_all_records, total_general_row]
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutique'")
-st.write(pivot_table_all_records.style.format(thousands="", precision=2, decimal=","))
+st.write(pivot_table_all_records.style.format(thousands="", precision=0, decimal=","))
 
 
 
