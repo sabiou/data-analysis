@@ -6,7 +6,7 @@ from io import StringIO
 
 
 # Set the locale to French
-locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
+locale.setlocale(locale.LC_ALL, 'fr_FR')
 
 file_path = "database.xlsx"
 df = pd.read_excel(file_path)
@@ -46,8 +46,7 @@ percentage_table['Pourcentage'] = (pivot_table['Total'] / pivot_table['Total'].l
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table")
-st.write(pivot_table.join(percentage_table['Pourcentage']).describe().style.format(
-    formatter=lambda x: f'{locale.format("%.2f", x, grouping=True)}'), use_container_width=True)
+st.write(pivot_table.join(percentage_table['Pourcentage']))
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
