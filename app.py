@@ -33,9 +33,10 @@ pivot_table = pd.pivot_table(
     margins=True,
     margins_name='Total',
     fill_value=0,
+    format=format_with_thousand_separator
 )
 
-pivot_table.style.format(format_with_thousand_separator)
+#pivot_table.style.format(format_with_thousand_separator)
 
 # Calculate percentages for each cell
 percentage_table = (pivot_table.div(pivot_table.loc[:, 'Total'], axis=0) * 100).round(2)
