@@ -13,7 +13,7 @@ df = pd.read_excel(file_path)
 
 
 st.write("## Displaying DataFrame")
-st.dataframe(df.head().style.format(thousands=" "))
+st.dataframe(df.head().style.format(thousands=""))
 st.write(df)
 
 
