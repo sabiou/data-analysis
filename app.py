@@ -476,7 +476,7 @@ st.write("## Updated DataFrame with 'Total General'")
 st.write(
     updated_frame
     .style.format({
-        col: "{:,.0f}" if "%" not in col else "{:.0f}" for col in updated_frame.columns
+        col: "" if "%" not in col else "{:.0f}" for col in updated_frame.columns
     })
 )
 
