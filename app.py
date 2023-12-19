@@ -475,9 +475,9 @@ updated_frame_classe = pd.concat([pivot_table_profile_classe, total_general_row_
 # Format the DataFrame for display
 formatted_frame = updated_frame.copy()
 for col in formatted_frame.columns:
-    # Exclude 'Pourcentage' column from formatting
-    if "%" not in col:
-        formatted_frame[col] = formatted_frame[col].apply(lambda x: f"{int(x):,}" if "%" not in col else f"{x:.6f}")
+    # Check if the column is not the 'Pourcentage' column
+    if col != 'Pourcentage':
+        formatted_frame[col] = formatted_frame[col].apply(lambda x: f"{int(x):,}")
 
 # Display the updated DataFrame with proper formatting
 st.write("## Updated DataFrame with 'Total General'")
