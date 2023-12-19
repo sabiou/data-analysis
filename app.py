@@ -423,8 +423,16 @@ total_general_row['Pourcentage'] = 100.0  # Assuming 100% for the 'Pourcentage' 
 updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 
 # Display the updated DataFrame
+#st.write("## Updated DataFrame with 'Total General'")
+#st.write(updated_frame.style.format(thousands="", precision=2, decimal=","))
+# Display the updated DataFrame with proper formatting
 st.write("## Updated DataFrame with 'Total General'")
-st.write(updated_frame.style.format(thousands="", precision=2, decimal=","))
+st.write(
+    updated_frame
+    .style.format({
+        col: "{:,.2f}" if "%" not in col else "{:.6f}" for col in updated_frame.columns
+    })
+)
 
 ####
 
