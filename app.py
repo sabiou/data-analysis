@@ -477,7 +477,7 @@ formatted_frame = updated_frame.copy()
 for col in formatted_frame.columns:
     # Check if the column is not the 'Pourcentage' column
     if col != 'Pourcentage':
-        formatted_frame[col] = formatted_frame[col].apply(lambda x: f"{int(x):,}")
+        formatted_frame[col] = formatted_frame[col].apply(lambda x: f"{int(x):,}" if "%" not in col else f"{x:.2f}")
 
 # Display the updated DataFrame with proper formatting
 st.write("## Updated DataFrame with 'Total General'")
