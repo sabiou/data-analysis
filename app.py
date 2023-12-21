@@ -272,6 +272,8 @@ total_general_row_anx = pd.DataFrame(pivot_table_all_records_anx.sum()).T
 total_general_row_anx.index = ['Total General']
 pivot_table_all_records_anx = pd.concat([pivot_table_all_records_anx, total_general_row_anx])
 
+pivot_table_all_records_anx = pivot_table_all_records_anx.rename_axis("DCI")
+
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Anxiolytiques'")
 st.write(pivot_table_all_records_anx.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
@@ -311,6 +313,8 @@ pivot_table_all_records_antiep['Pourcentage'] = (pivot_table_all_records_antiep[
 total_general_row_antiep = pd.DataFrame(pivot_table_all_records_antiep.sum()).T
 total_general_row_antiep.index = ['Total General']
 pivot_table_all_records_antiep = pd.concat([pivot_table_all_records_antiep, total_general_row_antiep])
+
+pivot_table_all_records_antiep = pivot_table_all_records_antiep.rename_axis("DCI")
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Antiepileptiques'")
