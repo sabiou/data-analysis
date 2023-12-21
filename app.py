@@ -11,7 +11,6 @@ def remove_percent_sign(value):
     return value
 
 
-
 # Set the locale to French
 locale.setlocale(locale.LC_NUMERIC, 'fr_FR.UTF-8')
 
@@ -348,7 +347,7 @@ pivot_table_all_records_antiep = pd.concat([pivot_table_all_records_antiep, tota
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Antiepileptiques'")
-st.write(pivot_table_all_records_antiep.style.format(thousands="", precision=0, decimal=",", formatter={c: "{:.2%}" for c in ["Pourcentage"]}))
+st.write(pivot_table_all_records_antiep.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
 
 
 # Create a pivot table for PAYS DE PROVENANCE
