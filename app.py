@@ -394,6 +394,8 @@ total_general_row = pd.DataFrame(pivot_table_profile_forme.sum()).T
 total_general_row.index = ['Total générale']
 updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 
+updated_frame = updated_frame.rename_axis("Profil / Forme")
+
 # Display the updated DataFrame
 st.write("## Updated DataFrame with 'Total General'")
 st.write(updated_frame.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
