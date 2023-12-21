@@ -563,20 +563,18 @@ st.write(record_count_by_year)
 
 ##
 
-# df = ...
-
 # Group by 'ANNEE' and get records for each year
 records_by_year = [df[df['ANNEE'] == year] for year in df['ANNEE'].unique()]
 
 # Display records for each year
+records_table = pd.DataFrame({'Year': df['ANNEE'].unique(), 'Record Count': [records.shape[0] for records in records_by_year]})
 st.write("## Records by Year")
-for year, records in zip(df['ANNEE'].unique(), records_by_year):
-    st.write(f"### Year {year}")
-    st.write(records)
+st.write(records_table)
 
 # Calculate the total records
 total_records = df.shape[0]
 
 # Display the total records
+total_row = pd.DataFrame({'Year': ['Total'], 'Record Count': [total_records]})
 st.write("## Total Records")
-st.write(f"Total: {total_records}")
+st.write(total_row)
