@@ -415,7 +415,6 @@ pivot_table_profile_forme['Pourcentage'] = (pivot_table_profile_forme['Total'] /
 # Add a 'Total General' row to the DataFrame
 total_general_row = pd.DataFrame(pivot_table_profile_forme.sum()).T
 total_general_row.index = ['Total générale']
-total_general_row['Pourcentage'] = 100.0  # Assuming 100% for the 'Pourcentage' column
 updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 
 # Display the updated DataFrame
