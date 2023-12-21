@@ -88,12 +88,11 @@ total_general_row.index = ['Total General']
 pivot_table_all_records = pd.concat([pivot_table_all_records, total_general_row])
 
 # Rename the first column to "Structures"
-pivot_table_all_records = pivot_table_all_records.rename_axis("Structures")
+pivot_table_all_records = pivot_table_all_records.rename_axis("Centrales")
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutique'")
 st.write(pivot_table_all_records.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
-
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
@@ -130,6 +129,9 @@ pivot_table_all_records_ong['Pourcentage'] = (pivot_table_all_records_ong['Total
 total_general_row_ong = pd.DataFrame(pivot_table_all_records_ong.sum()).T
 total_general_row_ong.index = ['Total General']
 pivot_table_all_records_ong = pd.concat([pivot_table_all_records_ong, total_general_row_ong])
+
+# Rename the first column to "Structures"
+pivot_table_all_records_ong = pivot_table_all_records_ong.rename_axis("ONG")
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'ONG Internationale'")
