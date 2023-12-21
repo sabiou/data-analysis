@@ -410,7 +410,7 @@ pivot_table_profile_forme = pivot_table_profile_forme.drop(columns='comprimé')
 pivot_table_profile_forme['Total'] = pivot_table_profile_forme.sum(axis=1)
 
 # Recalculate the percentage for each row
-pivot_table_profile_forme['Pourcentage'] = (pivot_table_profile_forme['Total'] / pivot_table_profile_forme['Total'].sum() * 100).round(6)
+pivot_table_profile_forme['Pourcentage'] = (pivot_table_profile_forme['Total'] / pivot_table_profile_forme['Total'].sum())
 
 # Add a 'Total General' row to the DataFrame
 total_general_row = pd.DataFrame(pivot_table_profile_forme.sum()).T
@@ -420,7 +420,7 @@ updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 
 # Display the updated DataFrame
 st.write("## Updated DataFrame with 'Total General'")
-st.write(updated_frame.style.format(thousands="", precision=2, decimal=","))
+st.write(updated_frame.style.format(thousands="", precision=0, decimal=",", formatter={c: "{:.2%}" for c in ["Pourcentage"]}))
 
 ####
 
