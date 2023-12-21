@@ -555,8 +555,28 @@ total_records = df['ANNEE'].count()
 
 # Add a new row for the total records
 total_row = {'ANNEE': 'Total', 'Record Count': total_records}
-record_count_by_year = record_count_by_year.append(total_row, ignore_index=True)
+#record_count_by_year = record_count_by_year.append(total_row, ignore_index=True)
 
 # Display the table using Streamlit
 st.write("## Record Count by Year")
 st.write(record_count_by_year)
+
+##
+
+# df = ...
+
+# Group by 'ANNEE' and get records for each year
+records_by_year = [df[df['ANNEE'] == year] for year in df['ANNEE'].unique()]
+
+# Display records for each year
+st.write("## Records by Year")
+for year, records in zip(df['ANNEE'].unique(), records_by_year):
+    st.write(f"### Year {year}")
+    st.write(records)
+
+# Calculate the total records
+total_records = df.shape[0]
+
+# Display the total records
+st.write("## Total Records")
+st.write(f"Total: {total_records}")
