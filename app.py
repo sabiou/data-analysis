@@ -419,7 +419,7 @@ updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 
 # Display the updated DataFrame
 st.write("## Updated DataFrame with 'Total General'")
-st.write(updated_frame.style.format(thousands="", precision=0, decimal=",", formatter={c: "{:.2%}" for c in ["Pourcentage"]}))
+st.write(updated_frame.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
 
 ####
 
