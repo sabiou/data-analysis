@@ -4,6 +4,13 @@ import altair as alt
 import locale
 from io import StringIO
 
+# Custom formatting function to remove the '%' sign
+def remove_percent_sign(value):
+    if isinstance(value, str) and value.endswith('%'):
+        return value[:-1]
+    return value
+
+
 
 # Set the locale to French
 locale.setlocale(locale.LC_NUMERIC, 'fr_FR.UTF-8')
@@ -455,11 +462,6 @@ pivot_table_profile_classe= df.pivot_table(
     fill_value=0
 )
 
-# Custom formatting function to remove the '%' sign
-def remove_percent_sign(value):
-    if isinstance(value, str) and value.endswith('%'):
-        return value[:-1]
-    return value
 
 # Update the 'Total' column
 pivot_table_profile_classe['Total'] = pivot_table_profile_classe.sum(axis=1)
