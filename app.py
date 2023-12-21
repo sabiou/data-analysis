@@ -563,21 +563,20 @@ st.write(record_count_by_year)
 
 ##
 
-# Group by 'ANNEE' and get records for each year
-records_by_year = [df[df['ANNEE'] == year] for year in df['ANNEE'].unique()]
 
-# Display records for each year
-records_table = pd.DataFrame({'Year': df['ANNEE'].unique(), 'Record Count': [records.shape[0] for records in records_by_year]})
-st.write("## Records by Year")
-st.write(records_table)
+# Create a pivot table
+pivot_table_records = pd.pivot_table(
+    df,
+    values='ANNEE',  # Using any column with non-null values for counting records
+    index=['ANNEE'],
+    aggfunc='count',
+    margins=True,
+    margins_name='Total'
+)
 
-# Calculate the total records
-total_records = df.shape[0]
+# Rename the 'Total générale' row to 'Total'
+pivot_table_records.index = pivot_table_records.index.where(pivot_table_records.index != 'Total générale', 'Total')
 
-# Append the total row to records_table
-total_row = pd.DataFrame({'Year': ['Total'], 'Record Count': [total_records]})
-records_table = records_table.append(total_row, ignore_index=True)
-
-# Display the updated records_table
-st.write("## Records with Total")
-st.write(records_table)
+# Display the pivot table with Streamlit
+st.write("## Records Pivot Table")
+st.write(pivot_table_records)
