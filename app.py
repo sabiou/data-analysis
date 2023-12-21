@@ -168,6 +168,8 @@ total_general_row_off = pd.DataFrame(pivot_table_all_records_off.sum()).T
 total_general_row_off.index = ['Total General']
 pivot_table_all_records_off = pd.concat([pivot_table_all_records_off, total_general_row_off])
 
+pivot_table_all_records_off = pivot_table_all_records_off.rename_axis("Officines")
+
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Officine'")
 st.write(pivot_table_all_records_off.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
