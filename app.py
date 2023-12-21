@@ -233,6 +233,8 @@ total_general_row_dci = pd.DataFrame(pivot_table_all_records_dci.sum()).T
 total_general_row_dci.index = ['Total General']
 pivot_table_all_records_dci = pd.concat([pivot_table_all_records_dci, total_general_row_dci])
 
+pivot_table_all_records_off = pivot_table_all_records_ong.rename_axis("DCI")
+
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Antalgiques/Analgésiques'")
 st.write(pivot_table_all_records_dci.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
