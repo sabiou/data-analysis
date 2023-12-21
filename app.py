@@ -18,16 +18,6 @@ file_path = "database.xlsx"
 df = pd.read_excel(file_path)
 
 
-st.write("## Displaying DataFrame")
-st.write(df.head().style.format(thousands=""))
-
-
-def format_with_thousand_separator(val):
-    if isinstance(val, (int, float)):
-        return '{:,.2f}'.format(val).replace('.', ',')
-    return val
-
-
 # Create a pivot table
 pivot_table = pd.pivot_table(
     df,
