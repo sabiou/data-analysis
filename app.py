@@ -192,7 +192,7 @@ pivot_table_all_records_off = df_off_records.pivot_table(
 pivot_table_all_records_off['Total'] = pivot_table_all_records_off.sum(axis=1)
 
 # Calculate the percentage for each row
-pivot_table_all_records_off['Pourcentage'] = (pivot_table_all_records_off['Total'] / pivot_table_all_records_off['Total'].sum() * 100).round(3)
+pivot_table_all_records_off['Pourcentage'] = (pivot_table_all_records_off['Total'] / pivot_table_all_records_off['Total'].sum())
 
 # Add a 'Total General' row
 total_general_row_off = pd.DataFrame(pivot_table_all_records_off.sum()).T
@@ -201,7 +201,7 @@ pivot_table_all_records_off = pd.concat([pivot_table_all_records_off, total_gene
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Officine'")
-st.write(pivot_table_all_records_off.style.format(thousands="", precision=2, decimal=","))
+st.write(pivot_table_all_records_off.style.format(thousands="", precision=0, decimal=",", formatter={c: "{:.2%}" for c in ["Pourcentage"]}))
 
 # Create a pivot table for Classes Therapeutiques
 pivot_table_classes = df.pivot_table(
