@@ -75,7 +75,7 @@ pivot_table_all_records = df_centrale_records.pivot_table(
 pivot_table_all_records['Total'] = pivot_table_all_records.sum(axis=1)
 
 # Calculate the percentage for each row
-pivot_table_all_records['Pourcentage'] = (pivot_table_all_records['Total'] / pivot_table_all_records['Total'].sum())
+pivot_table_all_records['%'] = (pivot_table_all_records['Total'] / pivot_table_all_records['Total'].sum())
 
 # Add a 'Total General' row
 total_general_row = pd.DataFrame(pivot_table_all_records.sum()).T
