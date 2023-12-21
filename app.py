@@ -307,7 +307,7 @@ pivot_table_all_records_anx = pd.concat([pivot_table_all_records_anx, total_gene
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Anxiolytiques'")
-st.write(pivot_table_all_records_anx.styleformat(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
+st.write(pivot_table_all_records_anx.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
 
 
 # 
