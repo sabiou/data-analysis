@@ -292,7 +292,7 @@ pivot_table_all_records_anx = df_anx_records.pivot_table(
 pivot_table_all_records_anx['Total'] = pivot_table_all_records_anx.sum(axis=1)
 
 # Calculate the percentage for each row
-pivot_table_all_records_anx['Pourcentage'] = (pivot_table_all_records_anx['Total'] / pivot_table_all_records_anx['Total'].sum() * 100).round(3)
+pivot_table_all_records_anx['Pourcentage'] = (pivot_table_all_records_anx['Total'] / pivot_table_all_records_anx['Total'].sum())
 
 # Add a 'Total General' row
 total_general_row_anx = pd.DataFrame(pivot_table_all_records_anx.sum()).T
@@ -301,7 +301,7 @@ pivot_table_all_records_anx = pd.concat([pivot_table_all_records_anx, total_gene
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Anxiolytiques'")
-st.write(pivot_table_all_records_anx.style.format(thousands="", precision=2, decimal=","))
+st.write(pivot_table_all_records_anx.style.format(thousands="", precision=0, decimal=",", formatter={c: "{:.2%}" for c in ["Pourcentage"]}))
 
 
 # 
