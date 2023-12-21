@@ -394,7 +394,7 @@ total_general_row = pd.DataFrame(pivot_table_profile_forme.sum()).T
 total_general_row.index = ['Total générale']
 updated_frame = pd.concat([pivot_table_profile_forme, total_general_row])
 
-updated_frame = updated_frame.rename_axis("Profil / Forme")
+updated_frame = updated_frame.rename_axis("Profils / Formes")
 
 # Display the updated DataFrame
 st.write("## Updated DataFrame with 'Total General'")
@@ -445,7 +445,7 @@ total_general_row_c = pd.DataFrame(pivot_table_profile_classe.sum()).T
 total_general_row_c.index = ['Total générale']
 updated_frame_classe = pd.concat([pivot_table_profile_classe, total_general_row_c])
 
-updated_frame_classe = updated_frame_classe.rename_axis("Classe / Forme")
+updated_frame_classe = updated_frame_classe.rename_axis("Classes / Formes")
 
 # Display the updated DataFrame
 st.write("## Updated DataFrame with 'Total General'")
