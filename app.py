@@ -171,7 +171,7 @@ total_general_row_off.index = ['Total General']
 pivot_table_all_records_off = pd.concat([pivot_table_all_records_off, total_general_row_off])
 
 # Rename the first column to "Officines"
-pivot_table_all_records_ong = pivot_table_all_records_ong.rename_axis("Officines")
+pivot_table_all_records_off = pivot_table_all_records_ong.rename_axis("Officines")
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Officine'")
