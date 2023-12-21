@@ -207,7 +207,7 @@ pivot_table_all_records_off = pd.concat([pivot_table_all_records_off, total_gene
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Officine'")
-st.write(pivot_table_all_records_off.style.format(thousands="", precision=0, decimal=",", formatter={c: "{:.2%}" for c in ["Pourcentage"]}))
+st.write(pivot_table_all_records_off.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
 
 # Create a pivot table for Classes Therapeutiques
 pivot_table_classes = df.pivot_table(
