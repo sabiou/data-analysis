@@ -455,6 +455,12 @@ pivot_table_profile_classe= df.pivot_table(
     fill_value=0
 )
 
+# Custom formatting function to remove the '%' sign
+def remove_percent_sign(value):
+    if isinstance(value, str) and value.endswith('%'):
+        return value[:-1]
+    return value
+
 # Update the 'Total' column
 pivot_table_profile_classe['Total'] = pivot_table_profile_classe.sum(axis=1)
 
@@ -468,7 +474,7 @@ updated_frame_classe = pd.concat([pivot_table_profile_classe, total_general_row_
 
 # Display the updated DataFrame
 st.write("## Updated DataFrame with 'Total General'")
-st.write(updated_frame_classe.style.format(thousands="", precision=0, decimal=",", formatter={c: "{:.2%}" for c in ["Pourcentage"]}))
+st.write(updated_frame_classe.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
 
 ### 
 
