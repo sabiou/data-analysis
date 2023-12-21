@@ -554,7 +554,7 @@ total_records = record_count_by_year['Record Count'].sum()
 
 # Add a row "Total" to the DataFrame
 total_row = {'ANNEE': 'Total', 'Record Count': total_records}
-record_count_by_year = record_count_by_year.append(total_row, ignore_index=True)
+record_count_by_year = record_count_by_year.append(total_row)
 
 # Display the table using Streamlit
 st.write("## Record Count by Year")
