@@ -52,6 +52,7 @@ percentage_table['Pourcentage'] = (pivot_table['Total'] / pivot_table['Total'].l
 st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table['Pourcentage']).style.format(thousands="", precision=2, decimal=","))
 
+
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
 data_centrale = df[df['Profil'] == 'Centrale pharmaceutique']
 
@@ -86,9 +87,6 @@ pivot_table_all_records['Pourcentage'] = (pivot_table_all_records['Total'] / piv
 total_general_row = pd.DataFrame(pivot_table_all_records.sum()).T
 total_general_row.index = ['Total General']
 pivot_table_all_records = pd.concat([pivot_table_all_records, total_general_row])
-
-# Rename the first column to "Structures"
-pivot_table_all_records = pivot_table_all_records.rename_axis("Centrales")
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutique'")
@@ -130,8 +128,45 @@ total_general_row_ong = pd.DataFrame(pivot_table_all_records_ong.sum()).T
 total_general_row_ong.index = ['Total General']
 pivot_table_all_records_ong = pd.concat([pivot_table_all_records_ong, total_general_row_ong])
 
-# Rename the first column to "ONG"
-pivot_table_all_records_ong = pivot_table_all_records_ong.rename_axis("ONG")
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table for All Records Corresponding to 'ONG Internationale'")
+st.write(pivot_table_all_records_ong.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
+
+
+# Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
+data_ong = df[df['Profil'] == 'ONG Internationale']
+
+# Remove spaces from column names in data_ong
+data_ong.columns = data_ong.columns.str.strip()
+
+# Get unique DEMANDEUR values corresponding to ONG Internationale
+demandeurs_ong = data_ong['DEMANDEUR'].unique()
+
+# Remove spaces from column names in the original DataFrame
+df.columns = df.columns.str.strip()
+
+# Create a new DataFrame with records corresponding to ONG Internationale in the DEMANDEUR column
+df_ong_records = df[df['DEMANDEUR'].isin(demandeurs_ong)]
+
+# Create a pivot table for the new DataFrame
+pivot_table_all_records_ong = df_ong_records.pivot_table(
+    index=['DEMANDEUR'],
+    columns='ANNEE', 
+    values='QUANTITE A COMMANDER( BOITES)', 
+    aggfunc='sum', 
+    fill_value=0
+)
+
+# Add a 'Total' column
+pivot_table_all_records_ong['Total'] = pivot_table_all_records_ong.sum(axis=1)
+
+# Calculate the percentage for each row
+pivot_table_all_records_ong['Pourcentage'] = (pivot_table_all_records_ong['Total'] / pivot_table_all_records_ong['Total'].sum())
+
+# Add a 'Total General' row
+total_general_row_ong = pd.DataFrame(pivot_table_all_records_ong.sum()).T
+total_general_row_ong.index = ['Total General']
+pivot_table_all_records_ong = pd.concat([pivot_table_all_records_ong, total_general_row_ong])
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'ONG Internationale'")
@@ -169,9 +204,6 @@ pivot_table_all_records_off['Pourcentage'] = (pivot_table_all_records_off['Total
 total_general_row_off = pd.DataFrame(pivot_table_all_records_off.sum()).T
 total_general_row_off.index = ['Total General']
 pivot_table_all_records_off = pd.concat([pivot_table_all_records_off, total_general_row_off])
-
-# Rename the first column to "Officines"
-pivot_table_all_records_off = pivot_table_all_records_ong.rename_axis("Officines")
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Officine'")
@@ -232,8 +264,6 @@ pivot_table_all_records_dci['Pourcentage'] = (pivot_table_all_records_dci['Total
 total_general_row_dci = pd.DataFrame(pivot_table_all_records_dci.sum()).T
 total_general_row_dci.index = ['Total General']
 pivot_table_all_records_dci = pd.concat([pivot_table_all_records_dci, total_general_row_dci])
-
-pivot_table_all_records_dci = pivot_table_all_records_ong.rename_axis("DCI")
 
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Antalgiques/Analgésiques'")
