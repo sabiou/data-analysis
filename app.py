@@ -52,7 +52,6 @@ percentage_table['Pourcentage'] = (pivot_table['Total'] / pivot_table['Total'].l
 st.write("## Pivot Table")
 st.write(pivot_table.join(percentage_table['Pourcentage']).style.format(thousands="", precision=2, decimal=","))
 
-
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
 data_centrale = df[df['Profil'] == 'Centrale pharmaceutique']
 
@@ -88,9 +87,13 @@ total_general_row = pd.DataFrame(pivot_table_all_records.sum()).T
 total_general_row.index = ['Total General']
 pivot_table_all_records = pd.concat([pivot_table_all_records, total_general_row])
 
+# Rename the first column to "Structures"
+pivot_table_all_records = pivot_table_all_records.rename_axis("Structures")
+
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for All Records Corresponding to 'Centrale pharmaceutique'")
 st.write(pivot_table_all_records.style.format(thousands="", precision=0, decimal=",", formatter={'Pourcentage': lambda x: remove_percent_sign(f"{x:.2%}")}))
+
 
 
 # Filter the data for the value "Centrale pharmaceutique" in the "Profil" column
