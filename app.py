@@ -544,6 +544,7 @@ top_10 = pivot_table_sorted.head(10)
 st.write("## Pivot Table")
 st.write(top_10.style.format(thousands="", precision=2, decimal=","))
 
+##
 
 # Group by 'ANNEE' and calculate the count of records for each year
 record_count_by_year = df.groupby('ANNEE').size().reset_index(name='Record Count')
