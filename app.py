@@ -434,7 +434,6 @@ pivot_table_profile_classe= df.pivot_table(
     fill_value=0
 )
 
-
 # Update the 'Total' column
 pivot_table_profile_classe['Total'] = pivot_table_profile_classe.sum(axis=1)
 
@@ -445,6 +444,8 @@ pivot_table_profile_classe['Pourcentage'] = (pivot_table_profile_classe['Total']
 total_general_row_c = pd.DataFrame(pivot_table_profile_classe.sum()).T
 total_general_row_c.index = ['Total générale']
 updated_frame_classe = pd.concat([pivot_table_profile_classe, total_general_row_c])
+
+updated_frame_classe = updated_frame_classe.rename_axis("Classe / Forme")
 
 # Display the updated DataFrame
 st.write("## Updated DataFrame with 'Total General'")
