@@ -459,28 +459,16 @@ pivot_table_profile_classe= df.pivot_table(
 pivot_table_profile_classe['Total'] = pivot_table_profile_classe.sum(axis=1)
 
 # Recalculate the percentage for each row
-pivot_table_profile_classe['Pourcentage'] = (pivot_table_profile_classe['Total'] / pivot_table_profile_classe['Total'].sum() * 100).round(6)
+pivot_table_profile_classe['Pourcentage'] = (pivot_table_profile_classe['Total'] / pivot_table_profile_classe['Total'].sum())
 
 # Add a 'Total General' row to the DataFrame
 total_general_row_c = pd.DataFrame(pivot_table_profile_classe.sum()).T
 total_general_row_c.index = ['Total générale']
-total_general_row_c['Pourcentage'] = 100.0  # Assuming 100% for the 'Pourcentage' column
 updated_frame_classe = pd.concat([pivot_table_profile_classe, total_general_row_c])
 
 # Display the updated DataFrame
-#st.write("## Updated DataFrame with 'Total General'")
-#st.write(updated_frame_classe.style.format(thousands="", precision=2, decimal=","))
-# Display the updated DataFrame with proper formatting
-# Format the DataFrame for display
-formatted_frame = updated_frame.copy()
-for col in formatted_frame.columns:
-    # Check if the column is not the 'Pourcentage' column
-    if col != 'Pourcentage':
-        formatted_frame[col] = formatted_frame[col].apply(lambda x: f"{int(x):,}" if "%" not in col else f"{x:.2f}")
-
-# Display the updated DataFrame with proper formatting
 st.write("## Updated DataFrame with 'Total General'")
-st.write(formatted_frame)
+st.write(updated_frame_classe.style.format(thousands="", precision=0, decimal=",", formatter={c: "{:.2%}" for c in ["Pourcentage"]}))
 
 ### 
 
