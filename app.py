@@ -534,9 +534,8 @@ st.write("## Pivot Table")
 st.write(top_10.style.format(thousands="", precision=2, decimal=","))
 
 ###
+total_records = df['ANNEE'].count()
 
-record_count_by_year = df.groupby('ANNEE').size().reset_index(name='Record Count')
-
-# Display the table using Streamlit
-st.write("## Record Count by Year")
-st.write(record_count_by_year)
+# Display the total count of records using Streamlit
+st.write("## Total Record Count")
+st.write(f"Total: {total_records}")
