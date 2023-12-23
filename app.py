@@ -552,4 +552,13 @@ records_table['Percentage'] = (records_table['Record Count'] / records_table['Re
 
 # Display the updated table
 st.write("## Records by Year with Percentage")
-st.write(records_table.drop(axis=1))
+st.write(records_table)
+
+# Create a bar chart for each year
+chart = alt.Chart(records_table).mark_bar().encode(
+    x='Year',
+    y='Percentage'
+)
+
+# Display the chart
+st.altair_chart(chart)
