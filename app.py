@@ -416,11 +416,14 @@ st.write(pivot_table.join(percentage_table, rsuffix='_Pourcentage').style.format
 ######
 
 # Create a DataFrame
-data = pd.DataFrame({
-    'Year': 'ANNEE',
-    'Quantities': 'QUANTITE A COMMANDER( BOITES)',
-    'Percentages': 'Pourcentage'
-})
+data = pd.pivot_table(
+    df,
+    values='QUANTITE A COMMANDER( BOITES)',
+    index=['ANNEE'],
+    aggfunc='sum',
+    margins=True,
+    margins_name='Total générale'
+)
 
 # Create a linear graph using Altair
 chart = alt.Chart(data).mark_line(point=True).encode(
