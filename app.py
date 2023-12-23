@@ -536,10 +536,6 @@ st.write(top_10.style.format(thousands="", precision=2, decimal=","))
 ###
 
 # Assuming df is your DataFrame with the given columns
-# Replace this with your actual DataFrame
-# df = ...
-
-# Group by 'ANNEE' and calculate the count of records for each year
 record_count_by_year = df['ANNEE'].value_counts().reset_index()
 record_count_by_year.columns = ['ANNEE', 'Record Count']
 
