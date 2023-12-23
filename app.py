@@ -535,16 +535,7 @@ st.write(top_10.style.format(thousands="", precision=2, decimal=","))
 
 ###
 
-# Assuming df is your DataFrame with the given columns
-record_count_by_year = df['ANNEE'].value_counts().reset_index()
-record_count_by_year.columns = ['ANNEE', 'Record Count']
-
-# Calculate the total count of records
-total_records = record_count_by_year['Record Count'].sum()
-
-# Add a row "Total" to the DataFrame
-total_row = {'ANNEE': 'Total', 'Record Count': total_records}
-record_count_by_year = record_count_by_year.append(total_row, ignore_index=True)
+record_count_by_year = df.groupby('ANNEE').size().reset_index(name='Record Count')
 
 # Display the table using Streamlit
 st.write("## Record Count by Year")
