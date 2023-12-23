@@ -548,7 +548,7 @@ records_table = pd.DataFrame({'Year': df['ANNEE'].unique(), 'Record Count': [rec
 records_table.loc[len(records_table)] = ['Total', records_table['Record Count'].sum()]
 
 # Calculate the percentage of each entry
-records_table['Percentage'] = records_table['Record Count'] / records_table['Record Count'].sum() * 100
+records_table['Percentage'] = records_table['Record Count'] / records_table['Record Count'] * 100
 
 # Display the updated table
 st.write("## Records by Year with Percentage")
