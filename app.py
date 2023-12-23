@@ -533,9 +533,20 @@ top_10 = pivot_table_sorted.head(10)
 st.write("## Pivot Table")
 st.write(top_10.style.format(thousands="", precision=2, decimal=","))
 
-###
-total_records = pd['ANNEE'].count()
+##
 
-# Display the total count of records using Streamlit
-st.write("## Total Record Count")
-st.write(f"Total: {total_records}")
+# Group by 'ANNEE' and get records for each year
+records_by_year = [df[df['ANNEE'] == year] for year in df['ANNEE'].unique()]
+
+# Display records for each year
+records_table = pd.DataFrame({'Year': df['ANNEE'].unique(), 'Record Count': [records.shape[0] for records in records_by_year]})
+st.write("## Records by Year")
+st.write(records_table)
+
+# Calculate the total records
+total_records = df.shape[0]
+
+# Display the total records
+total_row = pd.DataFrame({'Year': ['Total'], 'Record Count': [total_records]})
+st.write("## Total Records")
+st.write(total_row)
