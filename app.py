@@ -415,40 +415,6 @@ st.write(pivot_table.join(percentage_table, rsuffix='_Pourcentage').style.format
 
 ######
 
-# Create a DataFrame
-data = pd.pivot_table(
-    df,
-    values='QUANTITE A COMMANDER( BOITES)',
-    index=['ANNEE'],
-)
-
-# Create a linear graph using Altair
-chart = alt.Chart(data).mark_line(point=True).encode(
-    x='Year:N',
-    y='Quantities:Q',
-    tooltip=['Year', 'Quantities']
-).properties(
-    width=600,
-    height=400,
-    title='Total Imported Quantity Over Years'
-)
-
-# Add labels and title
-chart = chart.encode(
-    alt.X('Year:N', title='Year'),
-    alt.Y('Quantities:Q', title='Total Imported Quantity'),
-    color=alt.value('steelblue')
-).properties(
-    title='Total Imported Quantity Over Years',
-    width=600,
-    height=400
-)
-
-# Display the plot
-st.altair_chart(chart)
-
-#######
-
 # Create a pivot table for Profile and FORME PHARMACEUTIQUE
 pivot_table_profile_classe= df.pivot_table(
     index=['Classes Therapeutiques'],
