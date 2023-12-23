@@ -552,9 +552,10 @@ total_records = df.shape[0]
 
 # Append the total row to records_table
 total_row = pd.DataFrame({'Year': ['Total'], 'Record Count': [total_records]})
-records_table = records_table.append(total_row, ignore_index=True)
+records_table_updated = records_table.append(total_row, ignore_index=True)
 
 # Display the updated records_table
 st.write("## Records with Total")
-st.write(records_table)
+st.write(records_table_updated = records_table.append(total_row, ignore_index=True)
+)
 
