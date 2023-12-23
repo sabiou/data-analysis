@@ -420,9 +420,6 @@ data = pd.pivot_table(
     df,
     values='QUANTITE A COMMANDER( BOITES)',
     index=['ANNEE'],
-    aggfunc='sum',
-    margins=True,
-    margins_name='Total générale'
 )
 
 # Create a linear graph using Altair
