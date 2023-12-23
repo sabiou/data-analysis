@@ -426,6 +426,8 @@ pivot_table_profile_classe= df.pivot_table(
     fill_value=0
 )
 
+pivot_table_profile_classe = pivot_table_profile_classe.drop(columns=['comprimé'], errors='ignore')
+
 # Update the 'Total' column
 pivot_table_profile_classe['Total'] = pivot_table_profile_classe.sum(axis=1)
 
