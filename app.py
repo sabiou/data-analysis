@@ -353,6 +353,8 @@ percentage_table_formes = (pivot_table_formes.div(pivot_table_formes.loc[:, 'Tot
 # Add a 'Percentage' column
 percentage_table_formes['Pourcentage'] = (pivot_table_formes['Total'] / pivot_table_formes['Total'].loc['Total'] * 100).round(2)
 
+pivot_table_formes = pivot_table_formes[pivot_table_formes.index != 'comprimé']
+
 # Display the pivot table with original values and percentage using Streamlit
 st.write("## Pivot Table for 'FORME PHARMACEUTIQUE'")
 st.write(pivot_table_formes.join(percentage_table_formes['Pourcentage']).style.format(thousands="", precision=2, decimal=","))
@@ -510,6 +512,31 @@ st.write("## Pivot Table")
 st.write(pivot_table_vd_b.style.format(thousands="", precision=2, decimal=","))
 
 ####
+
+
+
+# Create pivot table
+pivot_table_vd_b = pd.pivot_table(
+    df,
+    values='QUANTITE A COMMANDER( BOITES)',
+    index=['VOIE D\'ADMINISTRATION'],
+    aggfunc={'QUANTITE A COMMANDER( BOITES)': 'sum'},
+    margins=True,
+    margins_name='Total Générale'
+)
+
+# Calculate percentages for each row
+percentage_vd_b = (pivot_table_vd_b / pivot_table_vd_b.loc['Total Générale', 'QUANTITE A COMMANDER( BOITES)'] * 100).round(2)
+
+# Add a 'Pourcentage' column to the pivot table
+pivot_table_vd_b['Pourcentage'] = percentage_vd_b['QUANTITE A COMMANDER( BOITES)']
+
+# Display the pivot table with original values and percentage using Streamlit
+st.write("## Pivot Table")
+st.write(pivot_table_vd_b.style.format(thousands="", precision=2, decimal=","))
+
+
+#####
 
 
 # Création d'une table pivot avec comme index la colonne "DCI" et les colonnes "ANNEE"
