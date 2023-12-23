@@ -543,5 +543,9 @@ records_by_year = [df[df['ANNEE'] == year] for year in df['ANNEE'].unique()]
 
 # Display records for each year
 records_table = pd.DataFrame({'Year': df['ANNEE'].unique(), 'Record Count': [records.shape[0] for records in records_by_year]})
+
+# Append a new row "Total" to the dataframe with the sum of the values in "Record count" column
+records_table.loc[len(records_table)] = ['Total', records_table['Record Count'].sum()]
+
 st.write("## Records by Year")
 st.write(records_table)
