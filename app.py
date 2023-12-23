@@ -552,4 +552,4 @@ records_table['Percentage'] = (records_table['Record Count'] / records_table['Re
 
 # Display the updated table
 st.write("## Records by Year with Percentage")
-st.write(records_table.drop('Index', axis=1))
+st.write(records_table.drop(axis=1))
