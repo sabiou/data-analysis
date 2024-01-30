@@ -585,20 +585,10 @@ st.write(records_table)
 
 ####
 
-# Create a histogram
-hist = alt.Chart(records_table).mark_bar().encode(
-    alt.X("Record Count:Q", bin=True),
-    y='count()',
-)
-
-# Display the histogram
-st.altair_chart(hist)
-st.pyplot(plt.gcf())  # Streamlit uses st.pyplot() to display plots
-
-# Create a bar chart for each year
-chart = alt.Chart(records_table).mark_bar().encode(
-    x='Year',
-    y='Percentage'
+# Create a bar chart
+chart = alt.Chart(records_table[:-1]).mark_bar().encode(
+    x='Year:O',
+    y='Record Count:Q',
 )
 
 # Display the chart
