@@ -586,7 +586,7 @@ st.write(records_table)
 ####
 
 # Create a bar chart
-bars = alt.Chart(records_table[:-1], width=600).mark_bar().encode(
+bars = alt.Chart(records_table[:-1], width=300).mark_bar().encode(
     x=alt.X('Year:O', axis=alt.Axis(labelAngle=-90)),
     y='Record Count:Q',
     color=alt.Color('Year:N', scale=alt.Scale(scheme='category20'))
