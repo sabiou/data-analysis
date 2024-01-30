@@ -586,10 +586,18 @@ st.write(records_table)
 ####
 
 # Create a bar chart
-chart = alt.Chart(records_table[:-1]).mark_bar().encode(
+bars = alt.Chart(records_table[:-1]).mark_bar().encode(
     x='Year:O',
     y='Record Count:Q',
 )
 
-# Display the chart
-st.altair_chart(chart)
+# Create a text chart for labels
+text = bars.mark_text(
+    align='center',
+    baseline='bottom',
+).encode(
+    text='Record Count:Q'
+)
+
+# Display the chart with labels
+st.altair_chart(bars + text)
