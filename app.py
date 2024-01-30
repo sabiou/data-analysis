@@ -604,3 +604,14 @@ text = bars.mark_text(
 
 # Display the chart with labels
 st.altair_chart(bars + text)
+
+
+# Create a histogram
+hist = alt.Chart(records_table[:-1], width=600).mark_bar().encode(
+    alt.X("Record Count:Q", bin=alt.Bin(maxbins=100)),
+    y='count()',
+    color=alt.Color('Year:N', scale=alt.Scale(scheme='category20'))
+)
+
+# Display the histogram
+st.altair_chart(hist)
