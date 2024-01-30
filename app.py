@@ -583,6 +583,19 @@ records_table['Percentage'] = (records_table['Record Count'] / records_table['Re
 st.write("## Records by Year with Percentage")
 st.write(records_table)
 
+####
+
+# Create a histogram
+plt.hist(records_table['Record Count'], bins=5, edgecolor='black')
+
+# Set the title and labels
+plt.title('Histogram of Record Count')
+plt.xlabel('Record Count')
+plt.ylabel('Frequency')
+
+# Show the plot
+st.pyplot(plt.gcf())  # Streamlit uses st.pyplot() to display plots
+
 # Create a bar chart for each year
 chart = alt.Chart(records_table).mark_bar().encode(
     x='Year',
