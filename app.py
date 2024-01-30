@@ -586,14 +586,13 @@ st.write(records_table)
 ####
 
 # Create a histogram
-plt.hist(records_table['Record Count'], bins=5, edgecolor='black')
+hist = alt.Chart(records_table).mark_bar().encode(
+    alt.X("Record Count:Q", bin=True),
+    y='count()',
+)
 
-# Set the title and labels
-plt.title('Histogram of Record Count')
-plt.xlabel('Record Count')
-plt.ylabel('Frequency')
-
-# Show the plot
+# Display the histogram
+st.altair_chart(hist)
 st.pyplot(plt.gcf())  # Streamlit uses st.pyplot() to display plots
 
 # Create a bar chart for each year
